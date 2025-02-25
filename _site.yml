@@ -29,6 +29,8 @@ navbar:
         href: "lectures/reviewExam1-KeNing.html"
       - text: "10-Diagnostics"
         href: "lectures/11-diagnostics.html"
+      - text: "11-Interactions I"
+        href: "lectures/12-interactions.html"
     - text: PDF Slides
       menu:
       - text: "1-Intro"
@@ -53,6 +55,8 @@ navbar:
         href: "lectures/reviewExam1-KeNing.pdf"
       - text: "10-Diagnostics"
         href: "lectures/11-diagnostics.pdf"
+      - text: "11-Interactions I"
+        href: "lectures/12-interactions.pdf"
     - text: Homework
       href: homework.html
   right:

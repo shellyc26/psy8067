@@ -3,7 +3,7 @@
   <head>
     <title>Interactions</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="my-theme.css" type="text/css" />
   </head>
@@ -83,24 +83,24 @@ We have an outcome (Stress) that we are interested in predicting from trait Anxi
 
 
 ```
-##         vars   n   mean     sd median trimmed    mad  min    max
-## id         1 118 488.65 295.95 462.50  485.76 372.13 2.00 986.00
-## Anxiety    2 118   7.61   2.49   7.75    7.67   2.26 0.70  14.64
-## Stress     3 118   5.18   1.88   5.27    5.17   1.65 0.62  10.32
-## Support    4 118   8.73   3.28   8.52    8.66   3.16 0.02  17.34
-## group*     5 118   1.53   0.50   2.00    1.53   0.00 1.00   2.00
-##          range  skew kurtosis    se
-## id      984.00  0.10    -1.29 27.24
-## Anxiety  13.94 -0.18     0.28  0.23
-## Stress    9.71  0.08     0.22  0.17
-## Support  17.32  0.18     0.19  0.30
-## group*    1.00 -0.10    -2.01  0.05
+##         vars   n   mean     sd median trimmed    mad  min    max  range  skew
+## id         1 118 488.65 295.95 462.50  485.76 372.13 2.00 986.00 984.00  0.10
+## Anxiety    2 118   7.61   2.49   7.75    7.67   2.26 0.70  14.64  13.94 -0.18
+## Stress     3 118   5.18   1.88   5.27    5.17   1.65 0.62  10.32   9.71  0.08
+## Support    4 118   8.73   3.28   8.52    8.66   3.16 0.02  17.34  17.32  0.18
+## group*     5 118   1.53   0.50   2.00    1.53   0.00 1.00   2.00   1.00 -0.10
+##         kurtosis    se
+## id         -1.29 27.24
+## Anxiety     0.28  0.23
+## Stress      0.22  0.17
+## Support     0.19  0.30
+## group*     -2.01  0.05
 ```
 
 
 ---
 
-```r
+``` r
 i.model1 = lm(Stress ~ Anxiety + Support + Anxiety:Support, 
               data = stress.data)
 i.model2 = lm(Stress ~ Anxiety*Support, data = stress.data)
@@ -109,7 +109,7 @@ i.model2 = lm(Stress ~ Anxiety*Support, data = stress.data)
 Both methods of specifying the interaction above will work in R. Using the `*` tells R to create both the (partial) main effects and interaction effect. Note, however that the following code *gives you the wrong results*:
 
 
-```r
+``` r
 imodel_bad = lm(Stress ~ Anxiety:Support, 
                 data = stress.data) # this does not create main effects. 
 #It is VERY WRONG
@@ -118,7 +118,7 @@ imodel_bad = lm(Stress ~ Anxiety:Support,
 
 ---
 
-```r
+``` r
 i.model1 = lm(Stress ~ Anxiety*Support, data = stress.data)
 summary(i.model1)
 ```
@@ -186,7 +186,7 @@ Higher-order interaction terms represent:
 - the linear effect of the product of independent variables
 
 
-```r
+``` r
 stress.data$AxS = stress.data$Anxiety*stress.data$Support
 head(stress.data[,c("Anxiety", "Support", "AxS")])
 ```
@@ -204,7 +204,7 @@ head(stress.data[,c("Anxiety", "Support", "AxS")])
 ---
 
 
-```r
+``` r
 summary(lm(Stress ~ Anxiety + Support + AxS, data = stress.data))
 ```
 
@@ -234,7 +234,7 @@ summary(lm(Stress ~ Anxiety + Support + AxS, data = stress.data))
 ---
 
 
-```r
+``` r
 summary(lm(Stress ~ Anxiety*Support, data = stress.data))
 ```
 
@@ -332,7 +332,7 @@ Often we graph the simple slopes as a way to understand the interaction. Interpr
 ---
 
 
-```r
+``` r
 library(sjPlot)
 plot_model(imodel, type = "int")
 ```
@@ -342,7 +342,7 @@ plot_model(imodel, type = "int")
 ---
 
 
-```r
+``` r
 plot_model(imodel, type = "int", mdrt.values = "meansd")
 ```
 
@@ -350,7 +350,7 @@ plot_model(imodel, type = "int", mdrt.values = "meansd")
 
 ---
 
-```r
+``` r
 plot_model(imodel, type = "pred", terms = c("Support", "Anxiety[5,10]"))
 ```
 
@@ -359,7 +359,7 @@ plot_model(imodel, type = "pred", terms = c("Support", "Anxiety[5,10]"))
 ---
 
 
-```r
+``` r
 plot_model(imodel, type = "pred", terms = c("Support", "Anxiety"), mdrt.values = "meansd")
 ```
 
@@ -377,7 +377,7 @@ You are interested in the effects of "brain games" and sleep on the development 
 ---
 
 
-The slope at any particular value is a combination of both `\(b_1\)` and `\(b_3\)` 
+The slope  is a combination of both `\(b_1\)` and `\(b_3\)` 
 `$$\hat{Y} = (b_{0} + b_{2}Z) + (b_{1} + b_{3}Z)X$$`
 `$$se_{b@z} = \sqrt{se_{b_1}^2 + (2 * Z * cov_{b_1b_3})+ (Z^2 se_{b_3}^2)}$$`
 `\(cov_{b_1b_3}\)` refers to the covariance of the coefficients, not the covariance of the variables. This may seem a strange concept, as we only ever have one value for `\(b_1\)` and `\(b_3\)` -- the covariance of these coefficients refer to idea that if we randomly sample from a population, estimate the coefficients each time, and then examine the covariance of coefficients across random samples, it will not be 0.
@@ -385,7 +385,7 @@ The slope at any particular value is a combination of both `\(b_1\)` and `\(b_3\
 ---
 
 
-```r
+``` r
 round(vcov(imodel),4)
 ```
 
@@ -400,7 +400,7 @@ round(vcov(imodel),4)
 We can use the standard error of the slope to estimate whether or not it is significanly different from 0. 
 
 
-`$$\hat{Y} = (b_{0} + b_{2}Z) + (b_{1} + b_{3}Z)X$$`
+
 `$$t = \frac{(b_{1} + b_{3}Z)}{se_{b@z}}$$`
 `$$df = N-p-1$$`
 
@@ -413,7 +413,7 @@ We can use the standard error of the slope to estimate whether or not it is sign
 We want to know whether anxiety is a significant predictor of stress at different levels of support.
 
 
-```r
+``` r
 library(reghelper)
 simple_slopes(imodel, levels = list(Support = c(4,6,8,10,12)))
 ```
@@ -438,7 +438,7 @@ What if you want to compare slopes to each other? How would we test this?
 The test of the interaction coefficient is equivalent to the test of the difference in slopes at levels of Z separated by 1 unit. 
 
 
-```r
+``` r
 coef(summary(imodel))
 ```
 
@@ -467,7 +467,7 @@ The regression equation built using the raw data is not only difficult to interp
 ---
 
 
-```r
+``` r
 stress.data = stress.data %&gt;%
   mutate(Anxiety.c = Anxiety - mean(Anxiety),
          Support.c = Support - mean(Support))
@@ -489,7 +489,7 @@ Why did we not center Y (Stress)?
 ---
 
 
-```r
+``` r
 summary(lm(Stress ~ Anxiety.c*Support.c, data = stress.data))
 ```
 
@@ -519,7 +519,7 @@ summary(lm(Stress ~ Anxiety.c*Support.c, data = stress.data))
 ---
 
 
-```r
+``` r
 summary(imodel)
 ```
 
@@ -558,7 +558,7 @@ So far, we've only discussed the unstandardized regression equation. If you're i
 .pull-left[
 #### This is OK
 
-```r
+``` r
 Y ~ z(X) + z(Z) + z(X)*z(Z) 
 
 Y ~ z(X)*z(Z) 
@@ -570,7 +570,7 @@ Y ~ z(X)*z(Z)
 #### This is not OK
 
 
-```r
+``` r
 Y ~ z(X) + z(Z) + z(X*Z) 
 ```
 
@@ -579,7 +579,7 @@ Y ~ z(X) + z(Z) + z(X*Z)
 ---
 
 
-```r
+``` r
 stress.data = stress.data %&gt;%
   mutate(zStress = scale(Stress), 
          zAnxiety = scale(Anxiety), 
@@ -598,7 +598,7 @@ head(stress.data[,c("zStress", "zAnxiety", "zSupport")])
 ```
 ---
 
-```r
+``` r
 zmodel = lm(zStress ~ zAnxiety*zSupport, stress.data)
 summary(zmodel)
 ```
@@ -632,7 +632,7 @@ Which is correct?
 
 
 
-```r
+``` r
 zmodel = lm(zStress ~ zAnxiety + zSupport + zAxS, stress.data)
 summary(zmodel)
 ```
@@ -664,7 +664,7 @@ Which is correct?
 ---
 
 
-```r
+``` r
 summary(imodel)
 ```
 
@@ -696,7 +696,7 @@ OG model
 ---
 
 
-```r
+``` r
 zmodel = lm(zStress ~ zAnxiety*zSupport, stress.data)
 summary(zmodel)
 ```
@@ -729,7 +729,7 @@ Correct z-model
 ---
 
 
-```r
+``` r
 summary(lm(Stress ~ Anxiety.c*Support.c, data = stress.data))
 ```
 
@@ -769,7 +769,7 @@ class: inverse
 
 ## Next time...
 
-Guest lecture by Josh Jackson on Bayesian Analyses!
+Interactions forever and forever
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

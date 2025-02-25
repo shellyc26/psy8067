@@ -319,7 +319,7 @@ You are interested in the effects of "brain games" and sleep on the development 
 ---
 
 
-The slope at any particular value is a combination of both $b_1$ and $b_3$ 
+The slope  is a combination of both $b_1$ and $b_3$ 
 $$\hat{Y} = (b_{0} + b_{2}Z) + (b_{1} + b_{3}Z)X$$
 $$se_{b@z} = \sqrt{se_{b_1}^2 + (2 * Z * cov_{b_1b_3})+ (Z^2 se_{b_3}^2)}$$
 $cov_{b_1b_3}$ refers to the covariance of the coefficients, not the covariance of the variables. This may seem a strange concept, as we only ever have one value for $b_1$ and $b_3$ -- the covariance of these coefficients refer to idea that if we randomly sample from a population, estimate the coefficients each time, and then examine the covariance of coefficients across random samples, it will not be 0.
@@ -333,7 +333,7 @@ round(vcov(imodel),4)
 We can use the standard error of the slope to estimate whether or not it is significanly different from 0. 
 
 
-$$\hat{Y} = (b_{0} + b_{2}Z) + (b_{1} + b_{3}Z)X$$
+
 $$t = \frac{(b_{1} + b_{3}Z)}{se_{b@z}}$$
 $$df = N-p-1$$
 
@@ -496,4 +496,4 @@ class: inverse
 
 ## Next time...
 
-Guest lecture by Josh Jackson on Bayesian Analyses!
+Interactions forever and forever
