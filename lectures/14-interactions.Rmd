@@ -41,7 +41,6 @@ library(tidyverse)
 
 - Introduction to interactions with two continuous predictors
 
-- Bayes galore with JJJ
 
 ---
 
@@ -299,28 +298,12 @@ summary(career.mod)
 
 ---
 
-### Pop Quiz
-
-For the model just defined in the previous slide...
-
-- Write out the regression equation
-- Interpret each term
-- Where is Econ? 
-
----
-
 
 ```{r}
 inc_data$gpa_c = inc_data$gpa - mean(inc_data$gpa)
 career.mod_c = lm(income ~ gpa_c*major, data = inc_data)
 summary(career.mod_c)
 ```
-
----
-
-### Pop Quiz 2
-
-Now re-interpret each term for for the model where `gpa` is centered. What changes?
 
 ---
 

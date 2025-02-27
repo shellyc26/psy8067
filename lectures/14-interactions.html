@@ -3,7 +3,7 @@
   <head>
     <title>Interactions (II)</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <script src="libs/kePrint-0.0.1/kePrint.js"></script>
     <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
@@ -43,7 +43,6 @@ class: center, middle, inverse, title-slide
 
 - Introduction to interactions with two continuous predictors
 
-- Bayes galore with JJJ
 
 ---
 
@@ -86,7 +85,7 @@ The interaction term represents how much the slope of X changes as you increase 
 ### Recap: Simple slopes
 
 
-```r
+``` r
 library(reghelper)
 simple_slopes(cars_model, levels = list(hp = c(78, 147, 215)))
 ```
@@ -103,7 +102,7 @@ simple_slopes(cars_model, levels = list(hp = c(78, 147, 215)))
 ### Recap: Plot simple slopes
 
 
-```r
+``` r
 plot_model(cars_model, type = "int", mdrt.values = "meansd")
 ```
 
@@ -182,7 +181,7 @@ Just like we use `\(R^2\)` to report how much variance in Y is explained by the 
 
 
 
-```r
+``` r
 mod = lm(Y ~ X + D, data = df)
 anova(mod)
 ```
@@ -246,7 +245,7 @@ Wash U contacts 150 alumni and collects their current salary (in thousands of do
 
 
 
-```r
+``` r
 library(psych)
 table(inc_data$major)
 ```
@@ -257,20 +256,20 @@ table(inc_data$major)
 ##      50      50      50
 ```
 
-```r
+``` r
 describe(inc_data[,c("gpa", "income")], fast = T)
 ```
 
 ```
-##        vars   n  mean   sd   min    max  range   se
-## gpa       1 150  3.36  0.4  2.44   4.19   1.74 0.03
-## income    2 150 84.35 34.0 24.67 160.27 135.60 2.78
+##        vars   n  mean   sd median   min    max  range  skew kurtosis   se
+## gpa       1 150  3.36  0.4   3.36  2.44   4.19   1.74 -0.22    -0.65 0.03
+## income    2 150 84.35 34.0  82.23 24.67 160.27 135.60  0.15    -0.90 2.78
 ```
 
 ---
 
 
-```r
+``` r
 career.mod = lm(income ~ gpa*major, data = inc_data)
 summary(career.mod)
 ```
@@ -302,19 +301,9 @@ summary(career.mod)
 
 ---
 
-### Pop Quiz
-
-For the model just defined in the previous slide...
-
-- Write out the regression equation
-- Interpret each term
-- Where is Econ? 
-
----
 
 
-
-```r
+``` r
 inc_data$gpa_c = inc_data$gpa - mean(inc_data$gpa)
 career.mod_c = lm(income ~ gpa_c*major, data = inc_data)
 summary(career.mod_c)
@@ -347,16 +336,10 @@ summary(career.mod_c)
 
 ---
 
-### Pop Quiz 2
-
-Now re-interpret each term for for the model where `gpa` is centered. What changes?
-
----
-
 ### Plotting results
 
 
-```r
+``` r
 library(ggeffects)
 predictedvals = ggpredict(model = career.mod, terms = c("gpa", "major"))
 
@@ -396,7 +379,7 @@ Recall our Solomon's paradox example from a few weeks ago:
 
 
 
-```r
+``` r
 head(solomon[,c("PERSPECTIVE", "DISTANCE", "WISDOM")])
 ```
 
@@ -410,7 +393,7 @@ head(solomon[,c("PERSPECTIVE", "DISTANCE", "WISDOM")])
 ## 6        self distanced -1.99578129
 ```
 
-```r
+``` r
 solomon$PERSPECTIVE = factor(solomon$PERSPECTIVE)
 solomon$DISTANCE = factor(solomon$DISTANCE)
 ```
@@ -420,7 +403,7 @@ solomon$DISTANCE = factor(solomon$DISTANCE)
 ### Model Means
 
 
-```r
+``` r
 solomon %&gt;% 
   group_by(DISTANCE, PERSPECTIVE) %&gt;% 
   summarize(meanWISDOM = mean(WISDOM, na.rm = TRUE))
@@ -440,7 +423,7 @@ solomon %&gt;%
 ---
 
 
-```r
+``` r
 summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 ```
 
@@ -472,7 +455,7 @@ summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 
 
 
-```r
+``` r
 summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 ```
 
@@ -503,7 +486,7 @@ summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 ---
 
 
-```r
+``` r
 summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 ```
 
@@ -533,7 +516,7 @@ summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 
 ---
 
-```r
+``` r
 summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 ```
 
@@ -564,7 +547,7 @@ summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 ---
 
 
-```r
+``` r
 summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 ```
 
@@ -596,7 +579,7 @@ summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 
 
 
-```r
+``` r
 summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 ```
 
@@ -629,7 +612,7 @@ summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 ### Plotting results
 
 
-```r
+``` r
 solomon.mod = lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon)
 plot_model(solomon.mod, type = "int")
 ```
@@ -800,7 +783,7 @@ Regardless of noise condition, does speed of the moving dot affect performance?
 ---
 
 
-```r
+``` r
 library(ggpubr)
 ggbarplot(data = Data, x = "Speed", y = "Time", add = c("mean_ci"), fill = "#DD3E3E", xlab = "Speed Condition", ylab = "Mean Seconds (95% CI)", title = "Failure time as a function of\nspeed condition") + cowplot::theme_cowplot(font_size = 20)
 ```
@@ -862,7 +845,7 @@ Regardless of dot speed, does noise condition affect performance?  Performance d
 ---
 
 
-```r
+``` r
 ggbarplot(data = Data, x = "Noise", y = "Time", add = c("mean_ci"), fill = "#DD3E3E", xlab = "Noise Condition", ylab = "Mean Seconds (95% CI)", title = "Failure time as a function of\nnoise condition") + cowplot::theme_cowplot(font_size = 20)
 ```
 
@@ -979,7 +962,7 @@ The remaining effect in a factorial design, and it primary advantage over separa
 Results of one-way ANOVA
 
 
-```r
+``` r
 lm(y ~ GROUP)
 ```
 
@@ -993,7 +976,7 @@ lm(y ~ GROUP)
 Results of Factorial ANOVA
 
 
-```r
+``` r
 lm(y ~ GROUP*other_VARIABLE)
 ```
 
