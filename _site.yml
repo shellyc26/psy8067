@@ -33,6 +33,8 @@ navbar:
         href: "lectures/12-interactions.html"
       - text: "12-Interactions II"
         href: "lectures/14-interactions.html"
+      - text: "13-Interactions III"
+        href: "lectures/15-interactions.html"
     - text: PDF Slides
       menu:
       - text: "1-Intro"
@@ -61,6 +63,8 @@ navbar:
         href: "lectures/12-interactions.pdf"
       - text: "12-Interactions II"
         href: "lectures/14-interactions.pdf"
+      - text: "13-Interactions III"
+        href: "lectures/15-interactions.pdf"
     - text: Homework
       href: homework.html
   right:

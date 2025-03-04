@@ -3,13 +3,39 @@ title: 'Interactions (III)'
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: [default, rladies, rladies-fonts, "my-theme.css"]
+    css: ["xaringan-themer.css", "my-theme.css"]
     incremental: true
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
 ---
+
+<style type="text/css">
+.remark-slide-content {
+    font-size: 30px;
+    padding: 1em 4em 1em 4em;
+}
+
+.small .remark-code { 
+  font-size: 80% !important;
+}
+.tiny .remark-code {
+  font-size: 50% !important;
+}
+
+</style>
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#17139C",link_color = "#DD3E3E")
+
+```
+
+```{r, warning=FALSE, message=FALSE, include=FALSE}
+library(sjPlot)
+library(tidyverse)
+```
 
 ## Last time
 
@@ -22,8 +48,6 @@ Factorial ANOVA (two categorical predictors)
 
 ---
 class:inverse
-## Factorial ANOVA
-
 
 The interaction of two or more categorical variables in a general linear model is formally known as **Factorial ANOVA**.
 
@@ -113,9 +137,6 @@ summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 summary(lm(WISDOM ~ PERSPECTIVE*DISTANCE, data = solomon))
 ```
 
-### Practice on your own: 
-
-Can you recreate the cell means from the previous page using this output? 
 ---
 
 ### What looks different? 
@@ -169,14 +190,14 @@ Data$Speed = factor(Data$Speed, levels = c("Slow", "Medium", "Fast")) # set orde
 Data$Noise = factor(Data$Noise, levels = c("None", "Controllable", "Uncontrollable")) # set order of levels as I want them presented
 ```
 
-.pull-left[
+.pull-left[.small[
 These next example data are from a simulated study in which 180 participants performed an eye-hand coordination task in which they were required to keep a mouse pointer on a red dot that moved in a circular motion.  
-]
+]]
 .pull-right[
 ![](images/dot.jpg)
 ]
 
-The outcome was the time of the 10th failure (higher time, better at task). The experiment used a completely crossed, 3 x 3 factorial design. One factor was dot speed: .5, 1, or 1.5 revolutions per second (Slow, Medium, or Fast).  The second factor was noise condition: no noise, controllable noise, or uncontrollable noise.
+.small[The outcome was the time of the 10th failure (higher time, better at task). The experiment used a completely crossed, 3 x 3 factorial design. One factor was dot speed: .5, 1, or 1.5 revolutions per second (Slow, Medium, or Fast).  The second factor was noise condition: no noise, controllable noise, or uncontrollable noise.]
 
 ---
 
@@ -230,7 +251,6 @@ There are three important ways we can view the results of this experiment.  Two 
 
 ---
 
-### Questions 
 ```{r, echo = F, results = 'asis', message = F, warning = F}
 mean.summary = Data %>%
   group_by(Noise, Speed) %>%
@@ -248,16 +268,12 @@ library(kableExtra)
 kable(mean.summary, digits = 2) %>% kable_styling() %>% group_rows(start_row = 1, end_row = 3)
 ```
 
-
-There are three important ways we can view the results of this experiment.  Two of them correspond to questions that would arise in a simple one-way ANOVA:
-
-Regardless of noise condition, does speed of the moving dot affect performance?
+1) Regardless of noise condition, does speed of the moving dot affect performance?
 
 
 
 ---
 
-### Questions 
 ```{r, echo = F, results = 'asis', message = F, warning = F}
 mean.summary = Data %>%
   group_by(Noise, Speed) %>%
@@ -276,11 +292,9 @@ kable(mean.summary, digits = 2) %>% kable_styling() %>% group_rows(start_row = 1
 ```
 
 
-There are three important ways we can view the results of this experiment.  Two of them correspond to questions that would arise in a simple one-way ANOVA:
+1) Regardless of noise condition, does speed of the moving dot affect performance?
 
-Regardless of noise condition, does speed of the moving dot affect performance?
-
-Regardless of dot speed, does noise condition affect performance?
+2) Regardless of dot speed, does noise condition affect performance?
 
 ---
 
@@ -289,10 +303,8 @@ Regardless of dot speed, does noise condition affect performance?
 kable(mean.summary, digits = 2) %>% 
   kable_styling() %>% 
   group_rows(start_row = 1, end_row = 3) %>%
-  row_spec(4, bold = T, color = "white", background = "#562457")
+  row_spec(4, bold = T, color = "white", background = "#DD3E3E")
 ```
-
-We can answer those questions by examining the marginal means, which isolate one factor while collapsing across the other factor.
 
 Regardless of noise condition, does speed of the moving dot affect performance?  
 - Faster moving dots are harder to track and lead to faster average failure times.
@@ -303,38 +315,35 @@ Adding information about variability allows us a sense of whether these are sign
 
 ```{r, message = F, warning = F, fig.width = 10, fig.height = 4.5}
 library(ggpubr)
-ggbarplot(data = Data, x = "Speed", y = "Time", add = c("mean_ci"), fill = "#562457", xlab = "Speed Condition", ylab = "Mean Seconds (95% CI)", title = "Failure time as a function of\nspeed condition") + cowplot::theme_cowplot(font_size = 20)
+ggbarplot(data = Data, x = "Speed", y = "Time", add = c("mean_ci"), fill = "#DD3E3E", xlab = "Speed Condition", ylab = "Mean Seconds (95% CI)", title = "Failure time as a function of\nspeed condition") + cowplot::theme_cowplot(font_size = 20)
 ```
 
-Looks like the mean differences are substantial.  The ANOVA will be able to tell us if the means are significantly different  and the magnitude of those differences in terms of variance accounted for.
+ANOVA will be able to tell us if the means are significantly different  and the magnitude of those differences in terms of variance accounted for.
 
 ---
-
-### Marginal means
 
 ```{r, echo = F, results = 'asis', message = F, warning = F}
 kable(mean.summary, digits = 2) %>% 
   kable_styling() %>% 
   group_rows(start_row = 1, end_row = 3) %>% 
-  column_spec(5, bold = T, color = "white", background = "#562457")
+  column_spec(5, bold = T, color = "white", background = "#DD3E3E")
 ```
 
 Regardless of dot speed, does noise condition affect performance?  
 - Performance declines in the presence of noise, especially if the noise is uncontrollable.
 
-Here, too adding information about variability allows us a sense of whether these are significant and meaningful differences...
+Adding info about variability allows us a sense of whether these are significant differences...
 
 ---
 
 ```{r, message = F, warning = F, fig.width = 10, fig.height = 4.5}
-ggbarplot(data = Data, x = "Noise", y = "Time", add = c("mean_ci"), fill = "#562457", xlab = "Noise Condition", ylab = "Mean Seconds (95% CI)", title = "Failure time as a function of\nnoise condition") + cowplot::theme_cowplot(font_size = 20)
+ggbarplot(data = Data, x = "Noise", y = "Time", add = c("mean_ci"), fill = "#DD3E3E", xlab = "Noise Condition", ylab = "Mean Seconds (95% CI)", title = "Failure time as a function of\nnoise condition") + cowplot::theme_cowplot(font_size = 20)
 ```
 
 The mean differences are not as apparent for this factor. The ANOVA will be particularly important for informing us about statistical significance and effect size.
 
 ---
 
-### Marginal means
 
 ```{r, echo = F, results = 'asis', message = F, warning = F}
 kable(mean.summary, digits = 2) %>% 
@@ -344,7 +353,7 @@ kable(mean.summary, digits = 2) %>%
 
 The **marginal mean differences** correspond to main effects. They tell us what impact a particular factor has, ignoring the impact of the other factor. 
 
-The remaining effect in a factorial design, and it primary advantage over separate one-way ANOVAs, is the ability to examine **conditional mean differences**. 
+The remaining effect in a factorial design is the ability to examine **conditional mean differences**. 
 
 ---
 
@@ -419,9 +428,6 @@ summary(lm(Time ~ Noise*Speed, data = Data))
 
 ---
 
-
-### Mean differences
-
 ```{r, echo = F, results = 'asis', message = F, warning = F}
 kable(mean.summary, digits = 2) %>% 
   kable_styling() %>% 
@@ -433,9 +439,9 @@ kable(mean.summary, digits = 2) %>%
   row_spec(4, background = "white")
 ```
 
-Are the marginal mean differences for noise condition a good representation of what is happening within each of the dot speed conditions?
+3) Are the marginal means for noise condition a good representation of what is happening within each of the dot speed conditions?
 
-If not, then we would need to say that the noise condition effect depends upon (is conditional on) dot speed.  We would have an interaction between noise condition and dot speed condition.
+If not, then the noise condition effect *depends upon* dot speed.  We would have an interaction between noise condition and dot speed condition.
 
 ---
 
@@ -479,7 +485,7 @@ cowplot::theme_cowplot(font_size = 10)
 
 Does noise condition affect failure time? 
 
-"Yes, but the magnitude of the effect is strongest for the medium speed condition, weaker for the fast speed condition, and mostly absent for the slow speed condition."
+"Yes, but the magnitude is strongest for medium speed, weaker for fast speed, and absent for the slow speed"
 ]
 
 ---
@@ -497,18 +503,16 @@ kable(mean.summary, digits = 2) %>%
   column_spec(5, background = "white")
 ```
 
-Are the marginal mean differences for speed condition a good representation of what is happening within each of the noise conditions?
+Are the marginal mean differences for speed a good representation of what is happening within each of the noise conditions?
 
-If not, then we would need to say that the speed condition effect depends upon (is conditional on) noise condition.  
+If not, then we say that the speed condition effect *depends upon* noise condition.  
 
 
 ---
 
 .left-column[
 .small[
-The speed condition means are clearly different in each noise condition, but the pattern of those differences is not the same. 
-
-The marginal speed condition means do not represent well the means in each noise condition.
+The speed condition means are different in each noise condition, but the pattern of those differences is not the same. 
 
 An interaction.]
 
@@ -525,8 +529,6 @@ cowplot::theme_cowplot(font_size = 20) + theme(legend.position = "top")
 ```
 ---
 
-### Null Hypotheses
-
 | | Slow | Medium | Fast | Marginal |
 |:-|:-:|:-:|:-:|:-:|
 | No Noise |             $\mu_{11}$ | $\mu_{12}$ | $\mu_{13}$ | $\mu_{1.}$ |
@@ -534,9 +536,9 @@ cowplot::theme_cowplot(font_size = 20) + theme(legend.position = "top")
 | Uncontrollable Noise | $\mu_{31}$ | $\mu_{32}$ | $\mu_{33}$ | $\mu_{3.}$ |
 | Marginal | $\mu_{.1}$ | $\mu_{.2}$ | $\mu_{.3}$ | $\mu_{..}$ $(\mu_g)$ |
 
-The two main effects and the interaction represent three independent questions we can ask about the data. We have three null hypotheses to test.
+The two main effects and the interaction represent 3 independent questions we can ask about the data. We have 3 null hypotheses to test.
 
-One null hypothesis refers to the marginal row means.
+1 null hypothesis refers to the marginal row means.
 
 $$
 \begin{aligned}
@@ -547,8 +549,6 @@ $$
 
 ---
 
-### Null Hypotheses
-
 | | Slow | Medium | Fast | Marginal |
 |:-|:-:|:-:|:-:|:-:|
 | No Noise |             $\mu_{11}$ | $\mu_{12}$ | $\mu_{13}$ | $\mu_{1.}$ |
@@ -556,7 +556,6 @@ $$
 | Uncontrollable Noise | $\mu_{31}$ | $\mu_{32}$ | $\mu_{33}$ | $\mu_{3.}$ |
 | Marginal | $\mu_{.1}$ | $\mu_{.2}$ | $\mu_{.3}$ | $\mu_{..}$ $(\mu_g)$ |
 
-We can state this differently (it will make stating the interaction null hypothesis easier when we get to it).
 
 $$
 \begin{aligned}
@@ -567,8 +566,6 @@ H_1&: \text{At least one }\alpha_r \neq 0
 $$
 
 ---
-
-### Null Hypotheses
 
 
 | | Slow | Medium | Fast | Marginal |
@@ -589,8 +586,6 @@ H_1&: \text{At least one }\beta_c \neq 0
 \end{aligned}
 $$
 ---
-### Null Hypothesis
-
 
 | | Slow | Medium | Fast | Marginal |
 |:-|:-:|:-:|:-:|:-:|
@@ -608,9 +603,6 @@ This simplifies down to:
 $$(\alpha\beta)_{rc} = \mu_{rc} - \mu_r - \mu_c + \mu_g$$
 
 ---
-
-### Null Hypothesis
-
 
 | | Slow | Medium | Fast | Marginal |
 |:-|:-:|:-:|:-:|:-:|
@@ -644,28 +636,29 @@ $\epsilon_{irc}$ = error component (independent, normally distributed)
 ### Putting it all together
 
 
-$$\large Y_{irc} = \mu + \alpha_r + \beta_c + (\alpha\beta)_{rc} + \epsilon_{irc}$$
+$$Y_{irc} = \mu + \alpha_r + \beta_c + (\alpha\beta)_{rc} + \epsilon_{irc}$$
 
 --
 
 If you subtract the grand mean ( $\mu_g$) from both sides and substitute in the treatment population means, you get...
 
 
-$$Y_{irc} - \mu_g = (\mu_r - \mu_g) + (\mu_c - \mu_g) + (\mu_{rc} - \mu_r - \mu_c + \mu_g) + \epsilon_{irc}$$
+$$\tiny Y_{irc} - \mu_g = (\mu_r - \mu_g) + (\mu_c - \mu_g) + (\mu_{rc} - \mu_r - \mu_c + \mu_g) + \epsilon_{irc}$$
 --
 
 Now, above is working with population parameters. We don't have those. We have sample estimates. Let's replace with the notation for sample estimates: 
 
-$$(Y_{irc} - \bar{Y}_g) = (\bar{Y}_r - \bar{Y}_g) + (\bar{Y}_c - \bar{Y}_g) + (\bar{Y}_{rc} - \bar{Y}_r - \bar{Y}_c + \bar{Y}_g) + \\ (\bar{Y}_{irc} - \bar{Y}_{rc})$$
---
+$$\tiny (Y_{irc} - \bar{Y}_g) = (\bar{Y}_r - \bar{Y}_g) + (\bar{Y}_c - \bar{Y}_g) + (\bar{Y}_{rc} - \bar{Y}_r - \bar{Y}_c + \bar{Y}_g) + \\\tiny (\bar{Y}_{irc} - \bar{Y}_{rc})$$
+---
+
+
+$$\tiny (Y_{irc} - \bar{Y}_g) = (\bar{Y}_r - \bar{Y}_g) + (\bar{Y}_c - \bar{Y}_g) + (\bar{Y}_{rc} - \bar{Y}_r - \bar{Y}_c + \bar{Y}_g) + \\\tiny (\bar{Y}_{irc} - \bar{Y}_{rc})$$
 
 In words, this translates to:
 
 > score - grand mean = main effect of A + main effect of B + interaction term + residual error
 
 ---
-### Variability 
-
 
 $$
 \begin{aligned}
@@ -679,9 +672,7 @@ $$
 
 ---
 
-### Variability 
-
-As was true for the simpler one-way ANOVA, we will partition the total variability in the data matrix into two basic parts. 
+### Partitioning Variability 
 
 One part will represent variability **within groups**. This within-group variability is variability that has nothing to do with the experimental conditions (all participants within a particular group experience the same experimental conditions). 
 
@@ -689,34 +680,26 @@ The other part will be **between-group variability**.  This part will include va
 
 ---
 
+If the design is balanced, then:
 
-### Variability 
-
-
-If the design is balanced (equal cases in all conditions), then:
-
-$$\large SS_{\text{total}} = SS_R + SS_C + SS_{RxC} +SS_{\text{within}}$$
+$$SS_{\text{total}} = SS_R + SS_C + SS_{RxC} +SS_{\text{within}}$$
 
 $df$, $MS$, and $F$ ratios are defined in the same way as they were for one-way ANOVA. We just have more of them.
 $$
 \begin{aligned}
-\large df_{Total} &= N-1 \\
-\large df_{Total} &= abn - 1 \\
-\large df_R &= R-1 \\
-\large df_C &= C-1 \\
-\large df_{RxC} &= (R-1)(C-1) \\
-\large df_{within} &= ab(n-1) \\
+df_{Total} &= N-1 \\
+df_{Total} &= abn - 1 \\
+df_R &= R-1 \\
+df_C &= C-1 \\
+df_{RxC} &= (R-1)(C-1) \\
+df_{within} &= ab(n-1) \\
 &= df_{total} - df_{R} - df_C - df_{RxC}
 \end{aligned}
 $$
 
 ---
 
-### Variability 
-
-If the design is balanced (equal cases in all conditions), then:
-
-$$\large SS_{\text{total}} = SS_R + SS_C + SS_{RxC} +SS_{\text{within}}$$
+$$SS_{\text{total}} = SS_R + SS_C + SS_{RxC} +SS_{\text{within}}$$
 
 $df$, $MS$, and $F$ ratios are defined in the same way as they were for one-way ANOVA. We just have more of them.
 
@@ -733,18 +716,13 @@ $$
 
 .pull-right[
 
-Each mean square is a variance estimate.  $MS_{within}$  is the pooled estimate of the within-groups variance.  It represents only random or residual variation.  $MS_R$, $MS_C$, and $MS_{RxC}$ also contain random variation, but include systematic variability too.
+$MS_{within}$  is the pooled estimate of the within-groups variance. Only random variation.  $MS_R$, $MS_C$, and $MS_{RxC}$ has random variation, but also systematic variability
 
 ]
 
 ---
 
-### F-statistics 
-
-
-If the design is balanced (equal cases in all conditions), then:
-
-$$\large SS_{\text{total}} = SS_R + SS_C + SS_{RxC} +SS_{\text{within}}$$
+$$SS_{\text{total}} = SS_R + SS_C + SS_{RxC} +SS_{\text{within}}$$
 
 $df$, $MS$, and $F$ ratios are defined in the same way as they were for one-way ANOVA. We just have more of them.
 
@@ -762,17 +740,17 @@ $$
 ]
 
 .pull-right[
-If the null hypotheses are true, these ratios will be ~1.00 because the numerator and denominator of each estimate the same thing. Departures from 1.00 indicate that systematic variability is present. If large enough, we reject the null hypothesis (each considered separately).
+If nulls are true, these ratios will be ~1. >1 indicate that systematic variability is present. If large enough, we reject the null hypothesis.
 ]
 
 ---
 
 ### Degrees of freedom
 
-The degrees of freedom for the different F ratios might not be the same. Different degrees of freedom define different theoretical F density distributions for determining what is an unusual value under the null hypothesis.
+The degrees of freedom for the different $F$ ratios might not be the same. Different degrees of freedom define different theoretical $F$ density distributions for determining what is an unusual value under the null hypothesis.
 
 
-Which is to say, you might get the same F-ratio for two different tests, but they could have different p-values, if they represent different numbers of groups. 
+Which is to say, you might get the same $F$-ratio for two different tests, but they could have different $p$-values, if they represent different numbers of groups. 
 
 ---
 
@@ -789,14 +767,10 @@ Interpretation?
 All three null hypotheses are rejected.  This only tells us that systemic differences among the means are present; follow-up comparisons are necessary to determine the nature of the differences. 
 ---
 
-### Interpretation of significance tests
-
-```{r}
+```{r, echo=FALSE}
 fit = lm(Time ~ Speed*Noise, data = Data)
 anova(fit)
 ```
-
-Both main effects and the interaction are significant.
 
 The significant interaction qualifies the main effects:
 
@@ -805,8 +779,6 @@ The significant interaction qualifies the main effects:
 - The magnitude of the noise main effect varies across the speed conditions.
 
 ---
-
-### Visualizing main effects and interactions
 
 Different combinations of main effects and interactions yield different shapes when plotted. An important skill is recognizing how plots will change based on the presence or absence of specific effects. 
 
@@ -892,10 +864,10 @@ How would you plot....
 
 All of the effects in the ANOVA are statistically significant, but how big are they?  An effect size, $\eta^2$, provides a simple way of indexing effect magnitude for ANOVA designs, especially as they get more complex.
 
-$$\large \eta^2 = \frac{SS_{\text{effect}}}{SS_{\text{total}}}$$
+$$\eta^2 = \frac{SS_{\text{effect}}}{SS_{\text{total}}}$$
 If the design is balanced...
 
-$$\large SS_{\text{total}} = SS_{\text{speed}} + SS_{\text{noise}}+SS_{\text{speed:noise}}+SS_{\text{within}}$$
+$$\small SS_{\text{total}} = SS_{\text{speed}} + SS_{\text{noise}}+SS_{\text{speed:noise}}+SS_{\text{within}}$$
 ---
 
 
@@ -923,12 +895,8 @@ The Speed main effect accounts for 8 to 9 times as much variance in the outcome 
 ![](images/eta_sq.jpg)
 ---
 
-### $\eta^2$
-
 .pull-left[
 **If the design is balanced:**
-
-There is no overlap among the independent variables. They are uncorrelated.
 
 The variance accounted for by any effect is unique. There is no ambiguity about the source of variance accounted for in the outcome.
 
@@ -941,22 +909,18 @@ The sum of the $\eta^2$ for effects and residual is 1.00.
 
 ---
 
-### $\eta^2$
-
 One argument against $\eta^2$ is that its magnitude depends in part on the magnitude of the other effects in the design. If the amount of variability due to Noise or Speed x Noise changes, so to does the effect size for Speed.
 
-$$\large \eta^2_{\text{speed}} = \frac{SS_{\text{speed}}}{SS_{\text{speed}} + SS_{\text{noise}} + SS_{\text{speed:noise}}+ SS_{\text{within}}}$$
+$$\eta^2_{\text{speed}} = \frac{SS_{\text{speed}}}{SS_{\text{speed}} + SS_{\text{noise}} + SS_{\text{speed:noise}}+ SS_{\text{within}}}$$
 
 An alternative is to pretend the other effects do not exist and reference the effect sum of squares to residual variability.
 
-$$\large \text{partial }\eta^2_{\text{speed}} = \frac{SS_{\text{speed}}}{SS_{\text{speed}} + SS_{\text{within}}}$$
+$$\text{partial }\eta^2_{\text{speed}} = \frac{SS_{\text{speed}}}{SS_{\text{speed}} + SS_{\text{within}}}$$
 ---
-
-### $\eta^2$
 
 One rationale for partial $\eta^2$ is that the residual variability represents the expected variability in the absence of any treatments or manipulations.  The presence of any treatments or manipulations only adds to total variability.  Viewed from that perspective, residual variability is a sensible benchmark against which to judge any effect.
 
-$$\large \text{partial }\eta^2_{\text{effect}} = \frac{SS_{\text{effect}}}{SS_{\text{effect}} + SS_{\text{within}}}$$
+$$\text{partial }\eta^2_{\text{effect}} = \frac{SS_{\text{effect}}}{SS_{\text{effect}} + SS_{\text{within}}}$$
 
 Partial $\eta^2$ is sometimes described as the expected effect size in a study in which the effect in question is the only effect present.
 
@@ -988,10 +952,6 @@ class: inverse
 
 ## Next Time
 
-- Qualitative Methods: Dr. Amy Eyler
-- Interactions IV (Power & Effect size)
-- Reminder: HW 3 is due 3/9
-- Exam 2 will be on **April 2**
-- Have a great spring break!
+- More interaction...duh
 
 
