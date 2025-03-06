@@ -33,8 +33,7 @@ style_mono_accent(base_color = "#17139C",link_color = "#DD3E3E")
 
 ## Last time...
 
-- Factorial ANOVA with Grace
-- Qualitative Methods with Amy Eyler
+- Factorial ANOVA
 
 ## This time
 
@@ -196,7 +195,7 @@ library(emmeans)
 summary(time_rg)
 ```
 
-Takes in a model that's already been fitted, and makes a reference grid needed to calculate the estimated marginal means.
+.small[Takes in a model that's already been fitted, makes a reference grid needed to calculate the marginal means.]
 
 ---
 The `lsmeans( )` function produces marginal and cell means along with their confidence intervals. These are the marginal means for the Noise main effect.
@@ -216,6 +215,10 @@ noise_m = plot_model(fit, type = "emm", terms = c("Noise")) +
   theme_sjplot(base_size = 20)
 speed_m = plot_model(fit, type = "emm", terms = c("Speed")) + 
   theme_sjplot(base_size = 20)
+
+```
+
+```{r, echo=FALSE, fig.width=10, fig.height=6}
 library(ggpubr)
 ggarrange(noise_m, speed_m, ncol = 2)
 ```
@@ -224,7 +227,8 @@ ggarrange(noise_m, speed_m, ncol = 2)
 
 ```{r, message=F, warning=F, fig.width=10, fig.height=6}
 plot_model(fit, type = "pred", terms = c("Speed", "Noise")) + 
-  theme_sjplot(base_size = 20) + theme(legend.position = "bottom")
+  theme_sjplot(base_size = 20) + 
+  theme(legend.position = "bottom")
 ```
 ---
 
@@ -242,9 +246,21 @@ $$
 $$
 ---
 
-### Cohen's D
+### Follow-up comparisons
 
-$\eta^2$ is useful for comparing the relative effect sizes of one factor to another. If you want to compare the differences between groups, Cohen's d is the more appropriate metric. Like in a t-test, you'll divide the differences in means by the pooled standard deviation. The pooled variance estimate is the $MS_{error}$
+Interpretation of the main effects and interaction in a factorial design will usually require follow-up comparisons.  These need to be conducted at the level of the effect.
+
+Interpretation of a main effect requires comparisons among the marginal means.
+
+Interpretation of the interaction requires comparisons among the cell means.
+
+The `emmeans` package makes these comparisons very easy to conduct.
+
+---
+
+### Cohen's $d$
+
+$\eta^2$ is useful for comparing the relative effect sizes of one factor to another. If you want to compare the differences between groups, Cohen's $d$ is the more appropriate metric. Like in a $t$-test, you'll divide the differences in means by the pooled standard deviation. The pooled variance estimate is the $MS_{error}$
 
 ```{r}
 fit = lm(Time ~ Speed*Noise, data = Data)
@@ -252,21 +268,36 @@ anova(fit)[,"Mean Sq"]
 MS_error = anova(fit)[,"Mean Sq"][4]
 ```
 
+---
+
+### Cohen's $d$
 So to get the pooled standard deviation:
 
 ```{r}
 pooled_sd = sqrt(MS_error)
+pooled_sd
 ```
 
 ---
 
-### Cohen's D
+### Cohen's $d$
 
 ```{r}
-(noise_df = as.data.frame(noise_lsm))
+noise_df = as.data.frame(noise_lsm)
+noise_df
 
-(d_none_control = diff(noise_df[c(1,2), "lsmean"])/pooled_sd)
+d_none_control = diff(noise_df[c(1,2), "lsmean"])/pooled_sd
+d_none_control
 ```
+---
+
+### Cohen's $d$ the easy way
+
+```{r}
+em.ef <- emmeans(fit, pairwise ~ Noise)
+eff_size(em.ef, sigma = sigma(fit), edf = 171)
+```
+
 ---
 
 ### Other `emmeans` functions
@@ -282,19 +313,6 @@ pairs(em)
 
 ```
 
----
-
-
-
-### Follow-up comparisons
-
-Interpretation of the main effects and interaction in a factorial design will usually require follow-up comparisons.  These need to be conducted at the level of the effect.
-
-Interpretation of a main effect requires comparisons among the marginal means.
-
-Interpretation of the interaction requires comparisons among the cell means.
-
-The `emmeans` package makes these comparisons very easy to conduct.
 
 ---
 
@@ -302,16 +320,6 @@ The `emmeans` package makes these comparisons very easy to conduct.
 noise_lsm = emmeans::lsmeans(time_rg, "Noise")
 pairs(noise_lsm, adjust = "holm")
 ```
-
----
-
-### Cohen's D the easy way
-
-```{r}
-em.ef <- emmeans(fit, pairwise ~ Noise)
-eff_size(em.ef, sigma = sigma(fit), edf = 171)
-```
-
 
 ---
 
@@ -407,7 +415,7 @@ Read the pipe `|` as "after"; $SS(AB | A,B)$ is *"the sum of squares for interac
 
 ### Type 1 SS (aka sequential)
 
-Test for main effect of A, followed by main effect of B, followed by interaction. ORDER MATTERS! The overlapping part of the venn diagram goes to whichever factor is listed first (a priority rule). Rule needs to be justified or else you might be p-hacking. 
+Test for main effect of A, followed by main effect of B, followed by interaction. ORDER MATTERS! The overlapping part of the venn diagram goes to whichever factor is listed first (a priority rule). Rule needs to be justified or else you might be $p$-hacking. 
 
 
 | Effect | Type I            | Type II           | Type III            |
@@ -464,7 +472,6 @@ Tests the presence of a main effect after the other main effect and interaction.
 
 The `aov( )` function in R produces Type I sums of squares. The `Anova( )` function from the `car` package provides Type II and Type III sums of squares.
 
-These work as expected provided the predictors are factors.
 
 ```{r}
 Anova(aov(fit), type = "II")

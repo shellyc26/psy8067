@@ -3,7 +3,7 @@
   <head>
     <title>Interactions (IV)</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <script src="libs/kePrint-0.0.1/kePrint.js"></script>
     <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
@@ -38,8 +38,7 @@ class: center, middle, inverse, title-slide
 
 ## Last time...
 
-- Factorial ANOVA with Grace
-- Qualitative Methods with Amy Eyler
+- Factorial ANOVA
 
 ## This time
 
@@ -113,7 +112,7 @@ Outcome: time of 10th failure. Dot speed: .5, 1, or 1.5 revolutions. Noise: no n
 ## Running the analysis of variance
 
 
-```r
+``` r
 fit = lm(Time ~ Speed*Noise, data = Data)
 anova(fit)
 ```
@@ -128,14 +127,13 @@ anova(fit)
 ## Speed:Noise   4  295720   73930   5.7649 0.0002241 ***
 ## Residuals   171 2192939   12824                       
 ## ---
-## Signif. codes:  
-## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 ---
 
 
-```r
+``` r
 lsr::etaSquared(fit)
 ```
 
@@ -225,7 +223,7 @@ The `\(MS_{within}\)` is common to all calculations if HoV met.
 ---
 
 
-```r
+``` r
 anova(fit)
 ```
 
@@ -239,12 +237,11 @@ anova(fit)
 ## Speed:Noise   4  295720   73930   5.7649 0.0002241 ***
 ## Residuals   171 2192939   12824                       
 ## ---
-## Signif. codes:  
-## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 ---
 
-```r
+``` r
 library(emmeans)
 (time_rg = ref_grid(fit))
 ```
@@ -255,7 +252,7 @@ library(emmeans)
 ##     Noise = None, Controllable, Uncontrollable
 ```
 
-```r
+``` r
 summary(time_rg)
 ```
 
@@ -272,13 +269,13 @@ summary(time_rg)
 ##  Fast   Uncontrollable        268 25.3 171
 ```
 
-Takes in a model that's already been fitted, and makes a reference grid needed to calculate the estimated marginal means.
+.small[Takes in a model that's already been fitted, makes a reference grid needed to calculate the marginal means.]
 
 ---
 The `lsmeans( )` function produces marginal and cell means along with their confidence intervals. These are the marginal means for the Noise main effect.
 
 
-```r
+``` r
 noise_lsm = emmeans::lsmeans(time_rg, "Noise")
 noise_lsm
 ```
@@ -298,27 +295,26 @@ noise_lsm
 ---
 
 
-```r
+``` r
 library(sjPlot)
 noise_m = plot_model(fit, type = "emm", terms = c("Noise")) + 
   theme_sjplot(base_size = 20)
 speed_m = plot_model(fit, type = "emm", terms = c("Speed")) + 
   theme_sjplot(base_size = 20)
-library(ggpubr)
-ggarrange(noise_m, speed_m, ncol = 2)
 ```
 
-![](17-interactions_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](17-interactions_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 ---
 
 
-```r
+``` r
 plot_model(fit, type = "pred", terms = c("Speed", "Noise")) + 
-  theme_sjplot(base_size = 20) + theme(legend.position = "bottom")
+  theme_sjplot(base_size = 20) + 
+  theme(legend.position = "bottom")
 ```
 
-![](17-interactions_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](17-interactions_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 ---
 
 ### Precision
@@ -335,12 +331,24 @@ $$
 $$
 ---
 
-### Cohen's D
+### Follow-up comparisons
 
-`\(\eta^2\)` is useful for comparing the relative effect sizes of one factor to another. If you want to compare the differences between groups, Cohen's d is the more appropriate metric. Like in a t-test, you'll divide the differences in means by the pooled standard deviation. The pooled variance estimate is the `\(MS_{error}\)`
+Interpretation of the main effects and interaction in a factorial design will usually require follow-up comparisons.  These need to be conducted at the level of the effect.
+
+Interpretation of a main effect requires comparisons among the marginal means.
+
+Interpretation of the interaction requires comparisons among the cell means.
+
+The `emmeans` package makes these comparisons very easy to conduct.
+
+---
+
+### Cohen's `\(d\)`
+
+`\(\eta^2\)` is useful for comparing the relative effect sizes of one factor to another. If you want to compare the differences between groups, Cohen's `\(d\)` is the more appropriate metric. Like in a `\(t\)`-test, you'll divide the differences in means by the pooled standard deviation. The pooled variance estimate is the `\(MS_{error}\)`
 
 
-```r
+``` r
 fit = lm(Time ~ Speed*Noise, data = Data)
 anova(fit)[,"Mean Sq"]
 ```
@@ -349,24 +357,33 @@ anova(fit)[,"Mean Sq"]
 ## [1] 1402935.71  170657.62   73929.93   12824.20
 ```
 
-```r
+``` r
 MS_error = anova(fit)[,"Mean Sq"][4]
-```
-
-So to get the pooled standard deviation:
-
-
-```r
-pooled_sd = sqrt(MS_error)
 ```
 
 ---
 
-### Cohen's D
+### Cohen's `\(d\)`
+So to get the pooled standard deviation:
 
 
-```r
-(noise_df = as.data.frame(noise_lsm))
+``` r
+pooled_sd = sqrt(MS_error)
+pooled_sd
+```
+
+```
+## [1] 113.244
+```
+
+---
+
+### Cohen's `\(d\)`
+
+
+``` r
+noise_df = as.data.frame(noise_lsm)
+noise_df
 ```
 
 ```
@@ -379,8 +396,9 @@ pooled_sd = sqrt(MS_error)
 ## Confidence level used: 0.95
 ```
 
-```r
-(d_none_control = diff(noise_df[c(1,2), "lsmean"])/pooled_sd)
+``` r
+d_none_control = diff(noise_df[c(1,2), "lsmean"])/pooled_sd
+d_none_control
 ```
 
 ```
@@ -388,10 +406,46 @@ pooled_sd = sqrt(MS_error)
 ```
 ---
 
+### Cohen's `\(d\)` the easy way
+
+
+``` r
+em.ef &lt;- emmeans(fit, pairwise ~ Noise)
+```
+
+```
+## NOTE: Results may be misleading due to involvement in interactions
+```
+
+``` r
+eff_size(em.ef, sigma = sigma(fit), edf = 171)
+```
+
+```
+## Since 'object' is a list, we are using the contrasts already present.
+```
+
+```
+##  contrast                        effect.size    SE  df lower.CL
+##  (None - Controllable)                 0.379 0.184 171   0.0161
+##  (None - Uncontrollable)               0.936 0.189 171   0.5622
+##  (Controllable - Uncontrollable)       0.557 0.185 171   0.1922
+##  upper.CL
+##     0.741
+##     1.310
+##     0.923
+## 
+## Results are averaged over the levels of: Speed 
+## sigma used for effect sizes: 113.2 
+## Confidence level used: 0.95
+```
+
+---
+
 ### Other `emmeans` functions
 
 
-```r
+``` r
 em &lt;- emmeans(fit, ~ Speed : Noise )
 em 
 ```
@@ -413,161 +467,107 @@ em
 ---
 
 
-```r
+``` r
 pairs(em)
 ```
 
 ```
-##  contrast                                    estimate   SE
-##  Slow None - Medium None                        105.4 35.8
-##  Slow None - Fast None                          301.4 35.8
-##  Slow None - Slow Controllable                   54.1 35.8
-##  Slow None - Medium Controllable                138.0 35.8
-##  Slow None - Fast Controllable                  343.5 35.8
-##  Slow None - Slow Uncontrollable                 36.3 35.8
-##  Slow None - Medium Uncontrollable              326.1 35.8
-##  Slow None - Fast Uncontrollable                362.6 35.8
-##  Medium None - Fast None                        196.0 35.8
-##  Medium None - Slow Controllable                -51.4 35.8
-##  Medium None - Medium Controllable               32.6 35.8
-##  Medium None - Fast Controllable                238.1 35.8
-##  Medium None - Slow Uncontrollable              -69.2 35.8
-##  Medium None - Medium Uncontrollable            220.7 35.8
-##  Medium None - Fast Uncontrollable              257.1 35.8
-##  Fast None - Slow Controllable                 -247.4 35.8
-##  Fast None - Medium Controllable               -163.4 35.8
-##  Fast None - Fast Controllable                   42.0 35.8
-##  Fast None - Slow Uncontrollable               -265.2 35.8
-##  Fast None - Medium Uncontrollable               24.7 35.8
-##  Fast None - Fast Uncontrollable                 61.1 35.8
-##  Slow Controllable - Medium Controllable         84.0 35.8
-##  Slow Controllable - Fast Controllable          289.4 35.8
-##  Slow Controllable - Slow Uncontrollable        -17.8 35.8
-##  Slow Controllable - Medium Uncontrollable      272.1 35.8
-##  Slow Controllable - Fast Uncontrollable        308.5 35.8
-##  Medium Controllable - Fast Controllable        205.5 35.8
-##  Medium Controllable - Slow Uncontrollable     -101.7 35.8
-##  Medium Controllable - Medium Uncontrollable    188.1 35.8
-##  Medium Controllable - Fast Uncontrollable      224.6 35.8
-##  Fast Controllable - Slow Uncontrollable       -307.2 35.8
-##  Fast Controllable - Medium Uncontrollable      -17.4 35.8
-##  Fast Controllable - Fast Uncontrollable         19.1 35.8
-##  Slow Uncontrollable - Medium Uncontrollable    289.8 35.8
-##  Slow Uncontrollable - Fast Uncontrollable      326.3 35.8
-##  Medium Uncontrollable - Fast Uncontrollable     36.5 35.8
-##   df t.ratio p.value
-##  171   2.944  0.0856
-##  171   8.418  &lt;.0001
-##  171   1.509  0.8498
-##  171   3.854  0.0051
-##  171   9.592  &lt;.0001
-##  171   1.013  0.9842
-##  171   9.106  &lt;.0001
-##  171  10.124  &lt;.0001
-##  171   5.473  &lt;.0001
-##  171  -1.435  0.8828
-##  171   0.910  0.9922
-##  171   6.648  &lt;.0001
-##  171  -1.931  0.5933
-##  171   6.162  &lt;.0001
-##  171   7.180  &lt;.0001
-##  171  -6.908  &lt;.0001
-##  171  -4.564  0.0003
-##  171   1.174  0.9609
-##  171  -7.405  &lt;.0001
-##  171   0.689  0.9989
-##  171   1.707  0.7417
-##  171   2.344  0.3219
-##  171   8.082  &lt;.0001
-##  171  -0.496  0.9999
-##  171   7.597  &lt;.0001
-##  171   8.615  &lt;.0001
-##  171   5.738  &lt;.0001
-##  171  -2.841  0.1114
-##  171   5.252  &lt;.0001
-##  171   6.271  &lt;.0001
-##  171  -8.579  &lt;.0001
-##  171  -0.486  0.9999
-##  171   0.533  0.9998
-##  171   8.093  &lt;.0001
-##  171   9.111  &lt;.0001
-##  171   1.018  0.9837
+##  contrast                                    estimate   SE  df t.ratio
+##  Slow None - Medium None                        105.4 35.8 171   2.944
+##  Slow None - Fast None                          301.4 35.8 171   8.418
+##  Slow None - Slow Controllable                   54.1 35.8 171   1.509
+##  Slow None - Medium Controllable                138.0 35.8 171   3.854
+##  Slow None - Fast Controllable                  343.5 35.8 171   9.592
+##  Slow None - Slow Uncontrollable                 36.3 35.8 171   1.013
+##  Slow None - Medium Uncontrollable              326.1 35.8 171   9.106
+##  Slow None - Fast Uncontrollable                362.6 35.8 171  10.124
+##  Medium None - Fast None                        196.0 35.8 171   5.473
+##  Medium None - Slow Controllable                -51.4 35.8 171  -1.435
+##  Medium None - Medium Controllable               32.6 35.8 171   0.910
+##  Medium None - Fast Controllable                238.1 35.8 171   6.648
+##  Medium None - Slow Uncontrollable              -69.2 35.8 171  -1.931
+##  Medium None - Medium Uncontrollable            220.7 35.8 171   6.162
+##  Medium None - Fast Uncontrollable              257.1 35.8 171   7.180
+##  Fast None - Slow Controllable                 -247.4 35.8 171  -6.908
+##  Fast None - Medium Controllable               -163.4 35.8 171  -4.564
+##  Fast None - Fast Controllable                   42.0 35.8 171   1.174
+##  Fast None - Slow Uncontrollable               -265.2 35.8 171  -7.405
+##  Fast None - Medium Uncontrollable               24.7 35.8 171   0.689
+##  Fast None - Fast Uncontrollable                 61.1 35.8 171   1.707
+##  Slow Controllable - Medium Controllable         84.0 35.8 171   2.344
+##  Slow Controllable - Fast Controllable          289.4 35.8 171   8.082
+##  Slow Controllable - Slow Uncontrollable        -17.8 35.8 171  -0.496
+##  Slow Controllable - Medium Uncontrollable      272.1 35.8 171   7.597
+##  Slow Controllable - Fast Uncontrollable        308.5 35.8 171   8.615
+##  Medium Controllable - Fast Controllable        205.5 35.8 171   5.738
+##  Medium Controllable - Slow Uncontrollable     -101.7 35.8 171  -2.841
+##  Medium Controllable - Medium Uncontrollable    188.1 35.8 171   5.252
+##  Medium Controllable - Fast Uncontrollable      224.6 35.8 171   6.271
+##  Fast Controllable - Slow Uncontrollable       -307.2 35.8 171  -8.579
+##  Fast Controllable - Medium Uncontrollable      -17.4 35.8 171  -0.486
+##  Fast Controllable - Fast Uncontrollable         19.1 35.8 171   0.533
+##  Slow Uncontrollable - Medium Uncontrollable    289.8 35.8 171   8.093
+##  Slow Uncontrollable - Fast Uncontrollable      326.3 35.8 171   9.111
+##  Medium Uncontrollable - Fast Uncontrollable     36.5 35.8 171   1.018
+##  p.value
+##   0.0856
+##   &lt;.0001
+##   0.8498
+##   0.0051
+##   &lt;.0001
+##   0.9842
+##   &lt;.0001
+##   &lt;.0001
+##   &lt;.0001
+##   0.8828
+##   0.9922
+##   &lt;.0001
+##   0.5933
+##   &lt;.0001
+##   &lt;.0001
+##   &lt;.0001
+##   0.0003
+##   0.9609
+##   &lt;.0001
+##   0.9989
+##   0.7417
+##   0.3219
+##   &lt;.0001
+##   0.9999
+##   &lt;.0001
+##   &lt;.0001
+##   &lt;.0001
+##   0.1114
+##   &lt;.0001
+##   &lt;.0001
+##   &lt;.0001
+##   0.9999
+##   0.9998
+##   &lt;.0001
+##   &lt;.0001
+##   0.9837
 ## 
 ## P value adjustment: tukey method for comparing a family of 9 estimates
 ```
 
----
-
-
-
-### Follow-up comparisons
-
-Interpretation of the main effects and interaction in a factorial design will usually require follow-up comparisons.  These need to be conducted at the level of the effect.
-
-Interpretation of a main effect requires comparisons among the marginal means.
-
-Interpretation of the interaction requires comparisons among the cell means.
-
-The `emmeans` package makes these comparisons very easy to conduct.
 
 ---
 
 
-```r
+``` r
 noise_lsm = emmeans::lsmeans(time_rg, "Noise")
 pairs(noise_lsm, adjust = "holm")
 ```
 
 ```
-##  contrast                      estimate   SE  df t.ratio
-##  None - Controllable               42.9 20.7 171   2.074
-##  None - Uncontrollable            106.0 20.7 171   5.128
-##  Controllable - Uncontrollable     63.1 20.7 171   3.053
-##  p.value
-##   0.0395
-##   &lt;.0001
-##   0.0052
+##  contrast                      estimate   SE  df t.ratio p.value
+##  None - Controllable               42.9 20.7 171   2.074  0.0395
+##  None - Uncontrollable            106.0 20.7 171   5.128  &lt;.0001
+##  Controllable - Uncontrollable     63.1 20.7 171   3.053  0.0052
 ## 
 ## Results are averaged over the levels of: Speed 
 ## P value adjustment: holm method for 3 tests
 ```
-
----
-
-### Cohen's D the easy way
-
-
-```r
-em.ef &lt;- emmeans(fit, pairwise ~ Noise)
-```
-
-```
-## NOTE: Results may be misleading due to involvement in interactions
-```
-
-```r
-eff_size(em.ef, sigma = sigma(fit), edf = 171)
-```
-
-```
-## Since 'object' is a list, we are using the contrasts already present.
-```
-
-```
-##  contrast                        effect.size    SE  df
-##  (None - Controllable)                 0.379 0.184 171
-##  (None - Uncontrollable)               0.936 0.189 171
-##  (Controllable - Uncontrollable)       0.557 0.185 171
-##  lower.CL upper.CL
-##    0.0161    0.741
-##    0.5622    1.310
-##    0.1922    0.923
-## 
-## Results are averaged over the levels of: Speed 
-## sigma used for effect sizes: 113.2 
-## Confidence level used: 0.95
-```
-
 
 ---
 
@@ -582,7 +582,7 @@ You can check the assumptions of the factorial ANOVA in much the same way you ch
 Homogeneity of variance, for example, can be tested using Levene's test, instead of examining a plot.
 
 
-```r
+``` r
 library(car)
 leveneTest(Time ~ Speed*Noise, data = Data)
 ```
@@ -604,7 +604,7 @@ However, if your design is unbalanced, the main effects and interaction effect a
 
 
 
-```r
+``` r
 table(Data2$Level, Data2$Noise)
 ```
 
@@ -656,7 +656,7 @@ Read the pipe `|` as "after"; `\(SS(AB | A,B)\)` is *"the sum of squares for int
 
 ### Type 1 SS (aka sequential)
 
-Test for main effect of A, followed by main effect of B, followed by interaction. ORDER MATTERS! The overlapping part of the venn diagram goes to whichever factor is listed first (a priority rule). Rule needs to be justified or else you might be p-hacking. 
+Test for main effect of A, followed by main effect of B, followed by interaction. ORDER MATTERS! The overlapping part of the venn diagram goes to whichever factor is listed first (a priority rule). Rule needs to be justified or else you might be `\(p\)`-hacking. 
 
 
 | Effect | Type I            | Type II           | Type III            |
@@ -670,7 +670,7 @@ Test for main effect of A, followed by main effect of B, followed by interaction
 If a design is quite unbalanced, different orders of effects can produce quite different results.
 
 
-```r
+``` r
 fit_1 = aov(Time ~ Noise + Level, data = Data2)
 summary(fit_1)
 ```
@@ -681,11 +681,10 @@ summary(fit_1)
 ## Level        1  722588  722588   52.10 3.20e-10 ***
 ## Residuals   77 1067848   13868                     
 ## ---
-## Signif. codes:  
-## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-```r
+``` r
 lsr::etaSquared(fit_1, type = 1)
 ```
 
@@ -700,7 +699,7 @@ lsr::etaSquared(fit_1, type = 1)
 If a design is quite unbalanced, different orders of effects can produce quite different results.
 
 
-```r
+``` r
 fit_1 = aov(Time ~ Level + Noise, data = Data2)
 summary(fit_1)
 ```
@@ -711,11 +710,10 @@ summary(fit_1)
 ## Noise        1  266194  266194   19.20 3.68e-05 ***
 ## Residuals   77 1067848   13868                     
 ## ---
-## Signif. codes:  
-## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-```r
+``` r
 lsr::etaSquared(fit_1, type = 1)
 ```
 
@@ -753,10 +751,9 @@ Tests the presence of a main effect after the other main effect and interaction.
 
 The `aov( )` function in R produces Type I sums of squares. The `Anova( )` function from the `car` package provides Type II and Type III sums of squares.
 
-These work as expected provided the predictors are factors.
 
 
-```r
+``` r
 Anova(aov(fit), type = "II")
 ```
 
@@ -770,8 +767,7 @@ Anova(aov(fit), type = "II")
 ## Speed:Noise  295720   4   5.7649 0.0002241 ***
 ## Residuals   2192939 171                       
 ## ---
-## Signif. codes:  
-## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 
@@ -829,7 +825,7 @@ The likelihood of finding an effect *if the effect actually exists.* Power gets 
 
 ---
 
-![](17-interactions_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](17-interactions_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -842,7 +838,7 @@ When calculating power for the omnibus test, use the expected multiple `\(R^2\)`
 
 ## Omnibus power
 
-```r
+``` r
 R2 = .10
 (f = R2/(1-R2))
 ```
@@ -856,7 +852,7 @@ R2 = .10
 ## Omnibus power
 
 
-```r
+``` r
 library(pwr)
 pwr.f2.test(u = 3, # number of predictors in the model
             f2 = f, 
@@ -888,7 +884,7 @@ To estimate power for a single coefficient, you need to consider (1) how much va
 ### Coefficient power
 
 
-```r
+``` r
 R2 = .10
 RX1 = .03
 (f = (R2-RX1)/(1-R2))
@@ -902,7 +898,7 @@ RX1 = .03
 
 ### Coefficient power
 
-```r
+``` r
 pwr.f2.test(u = 3, # number of predictors in the model
             f2 = f, 
             sig.level = .05, #alpha
