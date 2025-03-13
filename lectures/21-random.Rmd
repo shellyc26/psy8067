@@ -305,7 +305,7 @@ Why do we need another method?
 
 ---
 
-## Homoscedasticity
+### Homoscedasticity
 
 Homoscedasticity is the assumption that the variance of Y is constant across all levels of a predictor.
 
@@ -448,50 +448,9 @@ Data %>%
 ---
 ### When to use WLS
 
-WLS is a **robust** method of estimation. **Robust statistics** are statistics with good performance for data drawn from a wide range of probability distributions, especially for distributions that are not normal." .small[_([Wikipedia](https://en.wikipedia.org/wiki/Robust_statistics))_]
+WLS is a **robust** method of estimation. "**Robust statistics** are statistics with good performance for data drawn from a wide range of probability distributions, especially for distributions that are not normal." .small[_([Wikipedia](https://en.wikipedia.org/wiki/Robust_statistics))_]
 
 Use when...
 - Dealing with heteroscedasticity
 - You know already that points should not be treated equally (some should be weighed more than others); do you know that some of your data was measured with less error?
 
----
-class: inverse, center, middle
-
-# Totally Random + HW Assignment
-
----
-
-## Checking Assumptions
-
-```{r}
-library(performance)
-library(palmerpenguins)
-
-model1 = lm(body_mass_g ~ bill_length_mm, data = penguins)
-summary(model1)
-```
-
-
----
-## Checking Assumptions
-
-.small[
-```{r, message=F, warning=FALSE}
-check_model(x = model1)
-```
-]
-
-
----
-
-class: inverse
-
-## End of semester
-
-- Tuesday = Resampling methods, namely bootstrapping
-
-- Thursday = Machine learning; READ THE YARKONI & WESTFALL PAPER!
-
-- Tuesday = Wrapping up, future directions, review
-
-- Thursday = Exam 3. Oral exams will open after that. 

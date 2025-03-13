@@ -37,6 +37,14 @@ navbar:
         href: "lectures/15-interactions.html"
       - text: "14-Interactions IV"
         href: "lectures/17-interactions.html"
+      - text: "15-Interactions V"
+        href: "lectures/18-interactions.html"
+      - text: "16-Logistic Regression"
+        href: "lectures/19-logistic.html"
+      - text: "17-Random"
+        href: "lectures/21-random.html"
+      - text: "18-Machine Learning"
+        href: "lectures/23-ml.html"
     - text: PDF Slides
       menu:
       - text: "1-Intro"
@@ -69,6 +77,14 @@ navbar:
         href: "lectures/15-interactions.pdf"
       - text: "14-Interactions IV"
         href: "lectures/17-interactions.pdf"
+      - text: "15-Interactions V"
+        href: "lectures/18-interactions.pdf"
+      - text: "16-Logistic Regression"
+        href: "lectures/19-logistic.pdf"
+      - text: "17-Random"
+        href: "lectures/21-random.pdf"
+      - text: "18-Machine Learning"
+        href: "lectures/23-ml.pdf"
     - text: Homework
       href: homework.html
   right:

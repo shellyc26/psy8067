@@ -47,7 +47,7 @@ library(tidyverse)
 
 ## Last time...
 
-- Resampling methods via bootstrapping & permutation testing
+Exam 2
 
 ## Today
 
@@ -89,10 +89,6 @@ Statistical Tensions
 - How far have we really come in the past 10 years? 20 years? 30 years? ...not as far as we'd like
 - *We should spend more time and resources developing predictive models than we currently do*
 
----
-class: center, middle
-
-![](images/ai.png)
 ---
 ### Maybe Helpful Definitions
 
@@ -349,6 +345,8 @@ cv.model
 
 - If your whole sample is not representative, this will not save you
 
+> Garbage in, garbage out
+
 ---
 
 ### Regularization
@@ -423,7 +421,7 @@ plot(lasso.mod, xvar = "dev", label = T, )
 ### What value of $\lambda$ to choose?
 
 ```{r, fig.height=5}
-plot(lasso.mod, xvar = "lambda", label = TRUE, cex = 8)
+plot(lasso.mod, xvar = "lambda", label = TRUE, cex.lab = 1.5)
 ```
 
 Looking for $\lambda$ values where those coefficients are still different from 0. 
@@ -509,7 +507,13 @@ Rather than estimating degree of randomness; in machine learning, we're trying t
 ---
 class: inverse
 
-# Review on Tuesday
+## Enjoy the rest of the semester!!
 
-# Final exam on Thursday
+- Ran talking about Resampling Methods
+
+- Josh Jackson talking about Bayes & MLM
+
+- Amy Eyeler talking about Qualitative Methods
+
+- Josh Oltmans talking about AI
 

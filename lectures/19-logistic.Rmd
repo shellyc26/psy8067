@@ -3,25 +3,13 @@ title: 'Logistic Regression'
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: [default, rladies, rladies-fonts, "my-theme.css"]
+    css: ["xaringan-themer.css", "my-theme.css"]
     incremental: true
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
 ---
-
-```{r xaringan-themer, include = FALSE}
-
-hook_source <- knitr::knit_hooks$get('source')
-knitr::knit_hooks$set(source = function(x, options) {
-  x <- stringr::str_replace(x, "^[[:blank:]]?([^*].+?)[[:blank:]]*#<<[[:blank:]]*$", "*\\1")
-  hook_source(x, options)
-})
-
-library(tidyverse)
-library(broom)
-```
 
 <style type="text/css">
 .remark-slide-content {
@@ -33,11 +21,20 @@ library(broom)
   font-size: 80% !important;
 }
 .tiny .remark-code {
-  font-size: 65% !important;
+  font-size: 50% !important;
 }
+
 </style>
 
-## This whole semester has been linear regression (on steroids)
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#17139C",link_color = "#DD3E3E")
+
+```
+
+
+### This whole semester has been linear regression (on steroids)
 
 - We've had continuous IVs (regression)
 
@@ -51,7 +48,6 @@ library(broom)
 
 ---
 
-## Linear Regression
 When we have a continuous DV, we can...
   -   Calculate the $R^2$ and determine if our IVs & DV are correlated  (large value implying = large effect)
   
@@ -92,7 +88,7 @@ Learning goals today are *not*:
 
 ---
 
-## Logistic Regression
+### Logistic Regression
 
 Used when your DV is binary (0,1)  
 - Clinical diagnosis   
@@ -120,7 +116,7 @@ knitr::include_graphics("images/Log.1.png")
 
 ---
 .left-column[
-If we plotted our OLS regression line. It doesn't make sense! Predicted values can go above 1 or below 0...yikes
+OLS regression line. It doesn't make sense! Predicted values can go above 1 or below 0...yikes
 ]
 ```{r out.width = '75%', echo = FALSE}
 
@@ -192,16 +188,16 @@ $$\hat{p}_{i} \leftrightsquigarrow b_{0} + b_{1}X_{1} + b_{2}X_{2}... b_{3}X_{p}
 - In other words, **what is your DGP?**
 
 ---
-## Generalized linear models 
+### Generalized linear models 
 .pull-left[
-- Gaussian model is 
+- Gaussian model 
 $$y_i \sim  N(\mu_i, \sigma)$$
 
 $$\mu_i = \alpha + \beta x_i$$
 - The parameters of the normal distribution are the mean μ and the standard deviation σ (or the variance $\sigma^2$)]
 
 .pull-right[
-- Binomial outcome is
+- Binomial outcome
 $$y_i \sim  Binomial(n, p_i)$$
 
 $$f(p_i) = \alpha + \beta x_i$$
@@ -218,7 +214,7 @@ It is not common to have parameters range from negative to positive infinity.
 We need something that translates our model into the parameters that describe the distribution.  
 
 ---
-## Logistic regression
+### Logistic regression
 
 .pull-left[
 $$y_i \sim  Binomial(n, p_i)$$
@@ -231,7 +227,7 @@ Our number of trials is $N$, so we are predicting the probability of $y$. Probab
 .pull-right[
 Because our variables are not in probability units we need to "link" them via a function. The linear right side of the equation is not in the same units as the non-linear left side. 
  
-Two most popular are logit and log. Others are available too, such as probit.
+Two most popular are logit and log.
 ]
 
 ---
@@ -244,7 +240,7 @@ Two most popular are logit and log. Others are available too, such as probit.
 - Think of it as a transformation of $\hat{Y}$s
 
 ---
-## Sigmoid function
+### Sigmoid function
 
 .pull-left[
 $$f(x) = \frac{1}{1+e^{-X}}$$
@@ -311,7 +307,7 @@ The odds being so asymmetrical (unlike probability) make it difficult to compare
 ---
 ## Log Odds
 
-Taking the log of the odds solves this problem by making everything symetrical!
+Taking the log of the odds solves this problem by making everything symmetrical!
 
 Odds are 1 to 6:
 
@@ -332,7 +328,7 @@ $$odds = \frac {\hat{p}}{1-\hat{p}}=e^{b_{0}+b_{1}X}$$
 $$logit= Log(odds)=ln(\frac{\hat{p}}{1-\hat{p}}) = b_{0}+b_{1}X$$
 
 ---
-## Logit
+### Logit
 $$logit= Log(odds)=ln(\frac{\hat{p}}{1-\hat{p}}) = b_{0}+b_{1}X$$
 - DV is a logit, the natural log of odds
 
@@ -344,7 +340,7 @@ $$logit= Log(odds)=ln(\frac{\hat{p}}{1-\hat{p}}) = b_{0}+b_{1}X$$
 
 ---
 
-## Now what?
+### Now what?
 
 - In order to get the probability of a value of X being 1 or 0 based on some model parameters ( $b_0$, $b_1$ etc. ), we rearrange our equation so that we actually get the predicted logit (log of odds) given our model parameters. 
 
@@ -369,7 +365,7 @@ We are predicting logits, which happen to be the log of odds. It's bananas.
 How do we get these numbers in the first place? Can we use OLS?
 
 ---
-## Estimation with Maximum Likelihood
+### Estimation with Maximum Likelihood
 
 - OLS minimizes the errors ( $SS_{res}$), which maximizes ( $SS_{reg}$)   
 - In logistic regression we are not so lucky  
@@ -380,7 +376,7 @@ How do we get these numbers in the first place? Can we use OLS?
 
 ---
 
-## Estimation with Maximium Likelihood
+### Estimation with Maximium Likelihood
 
 Do any of you hike? Know how to read a topographic map?
 
@@ -393,7 +389,7 @@ ML Estimation is sort of like going hiking with your data to find the highest po
 But if if you take a wrong turn, you might get screwed. It's the risk we take when using ML Estimation!
 
 ---
-## Estimation with Maximum Likelihood
+### Estimation with Maximum Likelihood
 
 We are using the distribution of the data to find the location that maximizes the likelihood of observing the variable that we measured.
 
@@ -402,7 +398,7 @@ We are essentially trying to find the optimal value for the mean (or standard de
 .small[We are talking here about the mean of the distribution, not the mean of the data. (However, in a normal distribution, these are the same thing.)]
 
 ---
-## Estimation with Maximum Likelihood
+### Estimation with Maximum Likelihood
 
 - So we get model parameters, estimated via MLE (instead of OLS)
 
@@ -418,7 +414,6 @@ We are essentially trying to find the optimal value for the mean (or standard de
 asymptotic se's are just approximations since we finite-sample dist of the estimator isn't known
 
 ---
-## All Together Now
 
 - We try to predict binary outcomes. Our DV is dichotomous.
 - We can use categorical or continuous predictors (IVs) to do so
@@ -513,16 +508,12 @@ Specify your dataset.
 ]
 
 ---
-## How to interpret
+### How to interpret
 - $b_1$ is the predicted change in the logit for a 1-unit change in X, holding the other predictors constant 
-
 - For a 1-unit change in X, holding other predictors constant, the odds that Y = 1 changes by $e^{b_{1}}$   
-
   - e.g,. $b_{1}$ = .4, $e^{.4}$ = 1.49 
-
 - For fitted values, need to use entire equation
 $\hat{Y} = e^{b_{0}+b_{1}X_{1}}$
-
 - Turn to probabilities by: $\frac{\text{odds}}{(1 + \text{odds})}$
 
 ---
@@ -578,19 +569,19 @@ summary(death.3)
 ```
 
 ---
-## Interpretation
+### Interpretation
 
-For a 1-unit change in X, holding other predictors constant, the odds that Y = 1 changes by $e^{b_{1}}$
+For each 1-unit change in X, holding other predictors constant, the odds of the outcome occurring (that Y = 1) changes by $e^{b_{1}}$
 
 ```{r}
 exp(1)^.08012
 ```
 
-*For every 1-unit increase in Intelligence, the odds of not having a premature death 8%*
+*For every 1-unit increase in Intelligence, the odds of not having a premature death increase by ~8%*
+
+.small[1.083-1 = .08]
 
 ---
-
-## Specific Values?
 
 What if you want the probability of being a premature death for a given level of Intelligence? (Now that we've run our model and have parameters...)
 
@@ -606,7 +597,7 @@ exp(1)^(0.28695 + (.08012*20))
 ```
 
 ---
-## Probit 
+### Probit 
 
 We can have different link functions. When your response variable (DV) is truly binary -- the data generating process generates legit binary data -- logit is your pick.
 
@@ -616,7 +607,7 @@ What if your response variable is binary, but the underlying construct you are t
 
 [Stack exchange thread if you're going down this route](https://stats.stackexchange.com/questions/20523/difference-between-logit-and-probit-models)
 ---
-## Probit
+### Probit
 
 
 ```{r}

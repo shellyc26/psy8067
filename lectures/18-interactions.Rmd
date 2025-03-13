@@ -273,7 +273,7 @@ mean(ebeta_xz)
 mean(obeta_xz)
 ```
 
-```{r, echo = F, fig.width=10, fig.height=6}
+```{r, echo = F, fig.width=10, fig.height=5.5}
 data.frame(sim = rep(c("experimental", "observational"), each = 100),
            estimate = c(ebeta_xz, obeta_xz)) %>%
   ggplot(aes(x = estimate)) + 
@@ -289,7 +289,7 @@ mean(et_xz)
 mean(ot_xz)
 ```
 
-```{r, echo = F, fig.width=10, fig.height=6}
+```{r, echo = F, fig.width=10, fig.height=5.5}
 data.frame(sim = rep(c("experimental", "observational"), each = 100),
            t_val = c(et_xz, ot_xz)) %>%
   ggplot(aes(x = t_val)) + 
@@ -355,7 +355,7 @@ This particular point has been ["rediscovered"](https://statmodeling.stat.columb
 --
 
 
-- This generalizes to higher-order interactions as well. If you have a three-way interaction, you need 16*16 (256 times the number of people). 
+- This generalizes to higher-order interactions as well. If you have a three-way interaction, you need 16*16 (256 times the number of people). More coming... 
 
 ---
 
@@ -408,15 +408,15 @@ lm(log_y ~ x)
 
 ---
 
-Other processes represent changes in the direction of relationship -- a small amount of anxiety is beneficial for performance on some tasks but too much is detrimental. When the shape of the effect includes change(s) in direction, then a **polynomial** term(s) may be more appropriate.
+A small amount of anxiety is beneficial for performance on some tasks but too much is detrimental. When the **shape of the effect includes change(s) in direction**, then a **polynomial** term(s) may be more appropriate.
 
-Polynomials are often a poor approx. for a non-linear effect. Correctly testing for non-linear effects usually requires (a) a lot of data and (b) making a number of assumptions about the data. Polynomial regression can be a useful tool for *exploratory* analysis and in cases when data are limited in terms of quantity and/or quality.
+Polynomials are often a poor approximation for a non-linear effect. Correctly testing for non-linear effects usually requires (a) a lot of data and (b) making a number of assumptions about the data. Polynomial regression can be a useful tool for *exploratory* analysis and in cases when data are limited in terms of quantity and/or quality.
 
 
 ---
 ### Polynomial regression 
  
-Polynomial regression is most often a form of hierarchical regressoin that systematically tests a series of higher order functions for a single variable.
+Polynomial regression is most often a form of hierarchical regression that systematically tests a series of higher order functions for a single variable.
 
 $$
 \begin{aligned}
@@ -440,14 +440,14 @@ $$
 ---
 ### Can a team have too much talent?
 
-Researchers hypothesized that teams with too many talented players have poor intra-team coordination and perform worse than teams with a moderate amount of talent. They looked at 208 international football teams. Talent was the percentage of players during the 2010 and 2014 World Cup Qualifications phases who also had contracts with elite club teams. Performance was the number of points the team earned during these same qualification phases.
+Do teams with too many talented players have poor intra-team coordination and perform worse than teams with a moderate amount of talent? They looked at 208 international football teams. Talent was the percentage of players during the 2010 and 2014 World Cup Qualifications phases who also had contracts with elite club teams. Performance was the number of points the team earned during these same qualification phases.
 
 ```{r, message=F, echo=FALSE}
 library(here)
 football = read.csv(here("data/swaab.csv"))
 ```
 
-.small[Swaab, R.I., Schaerer, M, Anicich, E.M., Ronay, R., and Galinsky, A.D. (2014). [The too-much-talent effect: Team
+.tiny[Swaab, R.I., Schaerer, M, Anicich, E.M., Ronay, R., and Galinsky, A.D. (2014). [The too-much-talent effect: Team
 interdependence determines when more talent is too much or not enough.](https://www8.gsb.columbia.edu/cbs-directory/sites/cbs-directory/files/publications/Too%20much%20talent%20PS.pdf) _Psychological Science 25_(8), 1581-1591.]
 
 ---
@@ -480,6 +480,15 @@ ggplot(aug1, aes(x = .fitted, y = .resid)) +
 ```
 
 ---
+
+```{r}
+mod2 = lm(points ~ talent + I(talent^2), data = football)
+```
+
+The `I` stands for `identify`. It means that anything in `I()` should be treated according to it's arithmetic meaning. Sometimes R gets confused when you include `^` and `~` in the same formula. This `I()` prevents such issues.
+
+---
+
 ```{r mod2}
 mod2 = lm(points ~ talent + I(talent^2), data = football)
 summary(mod2)
@@ -513,7 +522,7 @@ summary(mod2_c)
 
 ---
 
-```{r, echo = FALSE, warning= FALSE}
+```{r, warning= FALSE}
 
 plot_model(mod2_c, type = "pred", terms = "talent_c")
 
@@ -548,7 +557,8 @@ plot_model(model = mod2_50, type = "pred", terms = "talent_c50")
 
 ### Interpretation
 
-The $b_2$ coefficient indexes the acceleration, which is how much the slope is going to change. More specifically, $2 \times b_2$ is the acceleration: the rate of change in $b_1$ for a 1-unit change in X.
+The $b_2$ coefficient indexes the acceleration, which is how much the slope is going to change. More specifically, $2 \times b_2$ is the acceleration:
+> the rate of change in $b_1$ for a 1-unit change in X
 
 You can use this to calculate the slope of the tangent line at any value of X you're interested in:
 $$\large b_1 + (2\times b_2\times X)$$
@@ -578,7 +588,7 @@ tidy(mod2)
 
 ### Polynomials are interactions
 
-An term for $X^2$ is a term for $X \times X$ or the multiplication of two independent variables holding the same values. 
+A term for $X^2$ is a term for $X \times X$ or the multiplication of two independent variables holding the same values. 
 
 ```{r}
 
@@ -639,7 +649,7 @@ It is equally correct to say that the magnitude of the A x C interaction depend 
 
 ---
 
-```{r, echo = F}
+```{r, echo = F, warning=FALSE, message=FALSE}
 set.seed(03032020)
 gender = sample(c("male", "female"), size = 150, replace = T)
 bad_day = sample(x = c(1:5), size = 150, replace = T)
@@ -653,10 +663,11 @@ stress[gender == "male"] = stress_m[gender == "male"]
 stress = stress+1+abs(min(stress))
 
 stress_data = data.frame(gender, bad_day, talk, stress)
+stress_data$gender = factor(stress_data$gender)
 ```
 
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 psych::describe(stress_data, fast = T)
 table(stress_data$gender)
 ```
@@ -677,8 +688,10 @@ simple_slopes(mod_stress)
 
 ---
 
-```{r, fig.width=10, fig.height = 7}
-plot_model(mod_stress, type = "int", mdrt.values = "meansd")
+```{r, warning = FALSE, message=FALSE, fig.width=9, fig.height = 6}
+figures = plot_model(mod_stress, type = "int", mdrt.values = "meansd")
+
+figures[[4]]
 ```
 
 ---
@@ -740,9 +753,13 @@ class: inverse
 
 ## Next time...
 
-Questions about tested material & HW assistance
+Logistic Regression
 
-April 2nd = Exam 2!!!!!!!!!!
+Catch Up/Flex -- if nothing, then Ke will run the review session in class
+
+March 27th = Exam 2!!!!!!!!!!
+
+April 1st = discussion of Yarkoni & Westfall paper. You 100% need to read it. Not optional.
 
 (everything after this slide is extra or code-based; feel free to play around, but you won't be tested on it)
 

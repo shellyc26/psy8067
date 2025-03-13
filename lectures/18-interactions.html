@@ -3,7 +3,7 @@
   <head>
     <title>Interactions (V)</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="my-theme.css" type="text/css" />
   </head>
@@ -140,7 +140,7 @@ What factors make it relatively easier to find interactions in experimental work
 For the experiment simulations, we used 2 X 2 factorial designs, with values of X and Z equal to +1 and —1 and an equal number of observations at each of the four combinations of X and Z values.
 
 
-```r
+``` r
 X = rep(c(-1,1), each = 50)
 Z = rep(c(-1,1), times = 50)
 table(X,Z)
@@ -166,7 +166,7 @@ For field studies
 
 
 
-```r
+``` r
 X = rnorm(n = 100, mean = 0, sd = .5)
 Z = rnorm(n = 100, mean = 0, sd = .5)
 X = round(X/.2)*.2
@@ -176,9 +176,9 @@ psych::describe(data.frame(X,Z), fast = T)
 ```
 
 ```
-##   vars   n  mean  sd  min max range   se
-## X    1 100 -0.05 0.5 -1.2 1.2   2.4 0.05
-## Z    2 100  0.03 0.5 -1.6 1.2   2.8 0.05
+##   vars   n  mean  sd median  min max range  skew kurtosis   se
+## X    1 100 -0.05 0.5      0 -1.2 1.2   2.4  0.04    -0.41 0.05
+## Z    2 100  0.03 0.5      0 -1.6 1.2   2.8 -0.44     0.63 0.05
 ```
 
 
@@ -187,7 +187,7 @@ psych::describe(data.frame(X,Z), fast = T)
 For both: `\(\beta_0 = 0, \beta_X=\beta_Z=\beta_{XZ} = 1.\)` `\(N = 100\)` , and randomly sampled normally distributed errors ( `\(\mu = 0, \sigma = 4\)` )
 
 
-```r
+``` r
 Y = 0 + 1*X + 1*Z + 1*X*Z + rnorm(n = 100, mean = 0, sd = 4)
 summary(lm(Y ~ X*Z))
 ```
@@ -216,14 +216,14 @@ summary(lm(Y ~ X*Z))
 ---
 
 
-```r
+``` r
 set.seed(0305)
 ```
 
 
 .pull-left[
 
-```r
+``` r
 # for experimental studies
 sim = 100
 ebeta_xz = numeric(length = 100)
@@ -250,7 +250,7 @@ for(i in 1:sim){
 ]
 .pull-right[
 
-```r
+``` r
 # for observational studies
 
 obeta_xz = numeric(length = 100)
@@ -278,7 +278,7 @@ for(i in 1:sim){
 ---
 
 
-```r
+``` r
 mean(ebeta_xz)
 ```
 
@@ -286,7 +286,7 @@ mean(ebeta_xz)
 ## [1] 0.9440304
 ```
 
-```r
+``` r
 mean(obeta_xz)
 ```
 
@@ -299,7 +299,7 @@ mean(obeta_xz)
 ---
 
 
-```r
+``` r
 mean(et_xz)
 ```
 
@@ -307,7 +307,7 @@ mean(et_xz)
 ## [1] 2.383435
 ```
 
-```r
+``` r
 mean(ot_xz)
 ```
 
@@ -320,7 +320,7 @@ mean(ot_xz)
 ---
 
 
-```r
+``` r
 cv = qt(p = .975, df = 100-3-1)
 esig = et_xz &gt; cv
 sum(esig)
@@ -330,7 +330,7 @@ sum(esig)
 ## [1] 66
 ```
 
-```r
+``` r
 osig = ot_xz &gt; cv
 sum(osig)
 ```
@@ -381,7 +381,7 @@ This particular point has been ["rediscovered"](https://statmodeling.stat.columb
 --
 
 
-- This generalizes to higher-order interactions as well. If you have a three-way interaction, you need 16*16 (256 times the number of people). 
+- This generalizes to higher-order interactions as well. If you have a three-way interaction, you need 16*16 (256 times the number of people). More coming... 
 
 ---
 
@@ -426,22 +426,22 @@ class: middle, center, inverse
 Linear lines often make bad predictions -- very few processes that we study actually have linear relationships. For example, effort had diminishing returns (e.g., log functions), or small advantages early in life can have significant effects on mid-life outcones (e.g., exponentional functions). In cases where the direction of the effect is constant but changing in magnitude, the best way to handle the data is to transform a variable (usually the outcome) and run linear analyses.
 
 
-```r
+``` r
 log_y = log(y)
 lm(log_y ~ x)
 ```
 
 ---
 
-Other processes represent changes in the direction of relationship -- a small amount of anxiety is beneficial for performance on some tasks but too much is detrimental. When the shape of the effect includes change(s) in direction, then a **polynomial** term(s) may be more appropriate.
+A small amount of anxiety is beneficial for performance on some tasks but too much is detrimental. When the **shape of the effect includes change(s) in direction**, then a **polynomial** term(s) may be more appropriate.
 
-Polynomials are often a poor approx. for a non-linear effect. Correctly testing for non-linear effects usually requires (a) a lot of data and (b) making a number of assumptions about the data. Polynomial regression can be a useful tool for *exploratory* analysis and in cases when data are limited in terms of quantity and/or quality.
+Polynomials are often a poor approximation for a non-linear effect. Correctly testing for non-linear effects usually requires (a) a lot of data and (b) making a number of assumptions about the data. Polynomial regression can be a useful tool for *exploratory* analysis and in cases when data are limited in terms of quantity and/or quality.
 
 
 ---
 ### Polynomial regression 
  
-Polynomial regression is most often a form of hierarchical regressoin that systematically tests a series of higher order functions for a single variable.
+Polynomial regression is most often a form of hierarchical regression that systematically tests a series of higher order functions for a single variable.
 
 $$
 `\begin{aligned}
@@ -465,17 +465,17 @@ $$
 ---
 ### Can a team have too much talent?
 
-Researchers hypothesized that teams with too many talented players have poor intra-team coordination and perform worse than teams with a moderate amount of talent. They looked at 208 international football teams. Talent was the percentage of players during the 2010 and 2014 World Cup Qualifications phases who also had contracts with elite club teams. Performance was the number of points the team earned during these same qualification phases.
+Do teams with too many talented players have poor intra-team coordination and perform worse than teams with a moderate amount of talent? They looked at 208 international football teams. Talent was the percentage of players during the 2010 and 2014 World Cup Qualifications phases who also had contracts with elite club teams. Performance was the number of points the team earned during these same qualification phases.
 
 
 
-.small[Swaab, R.I., Schaerer, M, Anicich, E.M., Ronay, R., and Galinsky, A.D. (2014). [The too-much-talent effect: Team
+.tiny[Swaab, R.I., Schaerer, M, Anicich, E.M., Ronay, R., and Galinsky, A.D. (2014). [The too-much-talent effect: Team
 interdependence determines when more talent is too much or not enough.](https://www8.gsb.columbia.edu/cbs-directory/sites/cbs-directory/files/publications/Too%20much%20talent%20PS.pdf) _Psychological Science 25_(8), 1581-1591.]
 
 ---
 .pull-left[
 
-```r
+``` r
 head(football)
 ```
 
@@ -491,7 +491,7 @@ head(football)
 ]
 .pull-right[
 
-```r
+``` r
 ggplot(football, aes(x = talent, y = points)) +
   geom_point() + 
   geom_smooth(se = F) +
@@ -506,7 +506,7 @@ ggplot(football, aes(x = talent, y = points)) +
 ---
 
 
-```r
+``` r
 mod1 = lm(points ~ talent, data = football)
 library(broom)
 aug1 = augment(mod1)
@@ -520,7 +520,17 @@ ggplot(aug1, aes(x = .fitted, y = .resid)) +
 
 ---
 
-```r
+
+``` r
+mod2 = lm(points ~ talent + I(talent^2), data = football)
+```
+
+The `I` stands for `identify`. It means that anything in `I()` should be treated according to it's arithmetic meaning. Sometimes R gets confused when you include `^` and `~` in the same formula. This `I()` prevents such issues.
+
+---
+
+
+``` r
 mod2 = lm(points ~ talent + I(talent^2), data = football)
 summary(mod2)
 ```
@@ -550,12 +560,12 @@ summary(mod2)
 ---
 
 
-```r
+``` r
 library(sjPlot)
 plot_model(mod2, type = "pred", terms = "talent")
 ```
 
-![](18-interactions_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](18-interactions_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 
 ---
 ### Interpretation
@@ -565,7 +575,7 @@ The intercept is the predicted value of `\(Y\)` when `\(X = 0\)`
 `\(b_1\)` coefficient is the *tangent to the curve* when `\(X = 0\)`. In other words, this is the rate of change when `\(X\)` is equal to `\(0\)`. If `\(0\)` is not a meaningful value on your `\(X\)`, you may want to center, as this will tell you the rate of change at the mean of `\(X\)`.
 
 
-```r
+``` r
 football$talent_c = football$talent - mean(football$talent)
 mod2_c = lm(points ~ talent_c + I(talent_c^2), data = football)
 ```
@@ -574,7 +584,7 @@ mod2_c = lm(points ~ talent_c + I(talent_c^2), data = football)
 ---
 
 
-```r
+``` r
 summary(mod2_c)
 ```
 
@@ -602,7 +612,12 @@ summary(mod2_c)
 
 ---
 
-![](18-interactions_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+
+``` r
+plot_model(mod2_c, type = "pred", terms = "talent_c")
+```
+
+![](18-interactions_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -610,7 +625,7 @@ summary(mod2_c)
 Or you can choose another value to center your predictor on, if there's a value that has a particular meaning or interpretation.
 
 
-```r
+``` r
 football$talent_c50 = football$talent - 50
 mod2_50 = lm(points ~ talent_c50 + I(talent_c50^2), data = football)
 ```
@@ -620,7 +635,7 @@ mod2_50 = lm(points ~ talent_c50 + I(talent_c50^2), data = football)
 ---
 
 
-```r
+``` r
 summary(mod2_50)
 ```
 
@@ -648,14 +663,15 @@ summary(mod2_50)
 
 ---
 
-![](18-interactions_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](18-interactions_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 ---
 
 
 ### Interpretation
 
-The `\(b_2\)` coefficient indexes the acceleration, which is how much the slope is going to change. More specifically, `\(2 \times b_2\)` is the acceleration: the rate of change in `\(b_1\)` for a 1-unit change in X.
+The `\(b_2\)` coefficient indexes the acceleration, which is how much the slope is going to change. More specifically, `\(2 \times b_2\)` is the acceleration:
+&gt; the rate of change in `\(b_1\)` for a 1-unit change in X
 
 You can use this to calculate the slope of the tangent line at any value of X you're interested in:
 `$$\large b_1 + (2\times b_2\times X)$$`
@@ -663,7 +679,7 @@ You can use this to calculate the slope of the tangent line at any value of X yo
 ---
 
 
-```r
+``` r
 tidy(mod2)
 ```
 
@@ -679,7 +695,7 @@ tidy(mod2)
 .pull-left[
 **At X = 10**
 
-```r
+``` r
 54.9 + (2*-.570*10)
 ```
 
@@ -691,7 +707,7 @@ tidy(mod2)
 .pull-right[
 **At X = 70**
 
-```r
+``` r
 54.9 + (2*-.570*70)
 ```
 
@@ -705,10 +721,10 @@ tidy(mod2)
 
 ### Polynomials are interactions
 
-An term for `\(X^2\)` is a term for `\(X \times X\)` or the multiplication of two independent variables holding the same values. 
+A term for `\(X^2\)` is a term for `\(X \times X\)` or the multiplication of two independent variables holding the same values. 
 
 
-```r
+``` r
 football$talent_2 = football$talent*football$talent
 tidy(lm(points ~ talent + talent_2, data = football))
 ```
@@ -779,27 +795,19 @@ It is equally correct to say that the magnitude of the A x C interaction depend 
 
 
 
-```r
+``` r
 psych::describe(stress_data, fast = T)
 ```
 
 ```
-## Warning in FUN(newX[, i], ...): no non-missing arguments to min; returning Inf
+##         vars   n  mean    sd median min  max range  skew kurtosis   se
+## gender     1 150   NaN    NA     NA Inf -Inf  -Inf    NA       NA   NA
+## bad_day    2 150  2.95  1.29      3   1    5     4  0.03    -1.11 0.11
+## talk       3 150  2.57  1.20      2   1    5     4  0.32    -0.94 0.10
+## stress     4 150 30.15 10.00     30   1   51    50 -0.03    -0.56 0.82
 ```
 
-```
-## Warning in FUN(newX[, i], ...): no non-missing arguments to max; returning -Inf
-```
-
-```
-##         vars   n  mean    sd min  max range   se
-## gender     1 150   NaN    NA Inf -Inf  -Inf   NA
-## bad_day    2 150  2.95  1.29   1    5     4 0.11
-## talk       3 150  2.57  1.20   1    5     4 0.10
-## stress     4 150 30.15 10.00   1   51    50 0.82
-```
-
-```r
+``` r
 table(stress_data$gender)
 ```
 
@@ -812,7 +820,7 @@ table(stress_data$gender)
 ---
 
 
-```r
+``` r
 mod_stress = lm(stress ~ bad_day*talk*gender, data = stress_data)
 summary(mod_stress)
 ```
@@ -847,7 +855,7 @@ summary(mod_stress)
 ---
 
 
-```r
+``` r
 library(reghelper)
 simple_slopes(mod_stress)
 ```
@@ -880,43 +888,20 @@ simple_slopes(mod_stress)
 ---
 
 
-```r
-plot_model(mod_stress, type = "int", mdrt.values = "meansd")
+``` r
+figures = plot_model(mod_stress, type = "int", mdrt.values = "meansd")
+
+figures[[4]]
 ```
 
-```
-## [[1]]
-```
-
-![](18-interactions_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
-
-```
-## 
-## [[2]]
-```
-
-![](18-interactions_files/figure-html/unnamed-chunk-34-2.png)&lt;!-- --&gt;
-
-```
-## 
-## [[3]]
-```
-
-![](18-interactions_files/figure-html/unnamed-chunk-34-3.png)&lt;!-- --&gt;
-
-```
-## 
-## [[4]]
-```
-
-![](18-interactions_files/figure-html/unnamed-chunk-34-4.png)&lt;!-- --&gt;
+![](18-interactions_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
 
 ---
 
 As a reminder, centering will change all but the highest-order terms in a model. 
 
 
-```r
+``` r
 stress_data = stress_data %&gt;%
   mutate(bad_day_c = bad_day - mean(bad_day),
          talk_c = talk - mean(talk))
@@ -925,7 +910,7 @@ newmod = lm(stress ~ bad_day_c*talk_c*gender, data = stress_data)
 
 ---
 
-```r
+``` r
 tidy(mod_stress)
 ```
 
@@ -946,7 +931,7 @@ tidy(mod_stress)
 ---
 
 
-```r
+``` r
 tidy(newmod)
 ```
 
@@ -1001,16 +986,20 @@ class: inverse
 
 ## Next time...
 
-Questions about tested material &amp; HW assistance
+Logistic Regression
 
-April 2nd = Exam 2!!!!!!!!!!
+Catch Up/Flex -- if nothing, then Ke will run the review session in class
+
+March 27th = Exam 2!!!!!!!!!!
+
+April 1st = discussion of Yarkoni &amp; Westfall paper. You 100% need to read it. Not optional.
 
 (everything after this slide is extra or code-based; feel free to play around, but you won't be tested on it)
 
 ---
 
 
-```r
+``` r
 library(car) 
 fit = lm(Time~Speed*Noise, data = Data)
 summary(aov(fit))
@@ -1026,7 +1015,7 @@ summary(aov(fit))
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-```r
+``` r
 Anova(fit, type = 2)
 ```
 
@@ -1046,7 +1035,7 @@ Anova(fit, type = 2)
 ---
 
 
-```r
+``` r
 fit = lm(Time~Speed*Noise, data = Data)
 summary(fit)
 ```
@@ -1082,7 +1071,7 @@ summary(fit)
 ---
 
 
-```r
+``` r
 library(emmeans)
 fit.grid = ref_grid(fit)
 pairs(fit.grid, adjust = "holm")
@@ -1136,7 +1125,7 @@ In `sjPlot()`, predicted values are the expected value of Y given all possible v
 
 .pull-left[
 
-```r
+``` r
 library(sjPlot)
 plot_model(fit, type = "pred", 
            terms = c("Noise", "Speed")) + 
@@ -1147,7 +1136,7 @@ plot_model(fit, type = "pred",
 ]
 
 .pull-left[
-![](18-interactions_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+![](18-interactions_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
 
 ]
 ---
@@ -1156,7 +1145,7 @@ In `sjPlot()`, predicted values are the expected value of Y given all possible v
 
 .pull-left[
 
-```r
+``` r
 library(sjPlot)
 plot_model(fit, type = "pred", 
            terms = c("Noise")) + 
@@ -1167,7 +1156,7 @@ plot_model(fit, type = "pred",
 ]
 
 .pull-left[
-![](18-interactions_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+![](18-interactions_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
 
 ]---
 
@@ -1175,7 +1164,7 @@ In `sjPlot()`, predicted values are the expected value of Y given all possible v
 
 .pull-left[
 
-```r
+``` r
 library(sjPlot)
 plot_model(fit, type = "pred", 
            terms = c("Noise", "Speed[Fast]")) + 
@@ -1186,7 +1175,7 @@ plot_model(fit, type = "pred",
 ]
 
 .pull-left[
-![](18-interactions_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+![](18-interactions_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -1198,7 +1187,7 @@ In `sjPlot()`, estimated marginal means are the expected value of Y given all po
 
 .pull-left[
 
-```r
+``` r
 library(sjPlot)
 plot_model(fit, type = "emm", 
            terms = c("Noise")) + 
@@ -1209,7 +1198,7 @@ plot_model(fit, type = "emm",
 ]
 
 .pull-left[
-![](18-interactions_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+![](18-interactions_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
 
 ]
     </textarea>

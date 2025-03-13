@@ -1,5 +1,5 @@
 ---
-title: "Homework #5"
+title: "Homework #4"
 output: html_document
 ---
 
@@ -48,3 +48,5 @@ Good luck!
 11. We have now talked about 3 different estimation methods. OLS, MLE, and WLS. Explain what each of these does and when you might use them.
 
 12. Pick one of your continuous variables that you feel like you know the *least* about. Please provide a bootstrapped estimate of some measure of central tendency (with bootstrapped 95% confidence intervals), as well as some bootstrapped estimate of variability (with bootstrapped 95% confidence intervals) 
+
+13. For your "winning" model from question 4, attempt to perform some sort of cross validation for that model. If you get really stuck, show us the code you ran and explain where you are stuck. This is mostly to get you to attempt cross validation in your own work -- I'm not expecting perfect code.

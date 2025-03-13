@@ -26,11 +26,8 @@ Note that this semester you will be making your RMarkdown/RNotebook (anything wi
 - HW 3 is posted [here](homework/homework4.html)
 - Due on **Friday 3/7 by 11:59pm**
 
-
-## Homework 4
-- Due on **Friday 3/28 by 11:59pm**
-
-## Homework 5
+## Homework 4 (double assignment!)
+- HW 4 is posted [here](homework/homework5.html)
 - Due on **Friday 4/18 by 11:59pm**
 
 

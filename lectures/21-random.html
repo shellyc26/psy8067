@@ -3,7 +3,7 @@
   <head>
     <title>Random Topics</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="my-theme.css" type="text/css" />
   </head>
@@ -63,7 +63,7 @@ Logistic Regression
 
 .pull-left[
 
-```r
+``` r
 glm(formula,
 *   family = gaussian(link="identity"),
     data,
@@ -94,7 +94,7 @@ The `family` argument specifies the distribution. In R, families have default li
 
 .pull-left[
 
-```r
+``` r
 *glm(y ~ X1+ X2 + X3 ,
     family = binomial,
     data = dataset)
@@ -110,7 +110,7 @@ Specify the model like you would with `lm`
 
 .pull-left[
 
-```r
+``` r
 glm(y ~ X1+ X2 + X3 , 
 *   family = binomial,
     data = dataset)
@@ -128,7 +128,7 @@ Specify the distribution you're working with. When binary outcomes, we'll use th
 
 .pull-left[
 
-```r
+``` r
 glm(y ~ X1+ X2 + X3 , 
     family = binomial, 
 *   data = dataset)
@@ -160,7 +160,7 @@ Specify your dataset.
 
 
 
-```r
+``` r
 # 1 = not premature
 mortality
 ```
@@ -185,7 +185,7 @@ mortality
 ---
 
 
-```r
+``` r
 death.1 &lt;- lm(NOT.premature ~ Intelligence_Self , data = mortality)
 summary(death.1)
 ```
@@ -215,7 +215,7 @@ summary(death.1)
 ---
 
 
-```r
+``` r
 death.2 &lt;- glm(NOT.premature ~ Intelligence_Self , data = mortality)
 summary(death.2)
 ```
@@ -244,7 +244,7 @@ summary(death.2)
 
 ---
 
-```r
+``` r
 anova(death.1)
 ```
 
@@ -261,7 +261,7 @@ anova(death.1)
 
 ---
 
-```r
+``` r
 anova(death.2)
 ```
 
@@ -275,15 +275,17 @@ anova(death.2)
 ## Terms added sequentially (first to last)
 ## 
 ## 
-##                   Df Deviance Resid. Df Resid. Dev
-## NULL                                299     42.330
-## Intelligence_Self  1  0.53653       298     41.793
+##                   Df Deviance Resid. Df Resid. Dev      F  Pr(&gt;F)  
+## NULL                                299     42.330                 
+## Intelligence_Self  1  0.53653       298     41.793 3.8256 0.05141 .
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 ---
 
 
-```r
+``` r
 death.3 &lt;- glm(NOT.premature ~ Intelligence_Self,
                family = binomial, data = mortality)
 summary(death.3)
@@ -317,7 +319,7 @@ summary(death.3)
 For a 1-unit change in X, holding other predictors constant, the odds that Y = 1 changes by `\(e^{b_{1}}\)`
 
 
-```r
+``` r
 exp(1)^.08012
 ```
 
@@ -344,7 +346,7 @@ For fitted values, need to use entire equation
 `\(\hat{Y} = e^{b_{0}+b_{1}X_{1}}\)`
 
 
-```r
+``` r
 # get odds with a given value of X (here 20)
 exp(1)^(0.28695 + (.08012*20))
 ```
@@ -353,7 +355,7 @@ exp(1)^(0.28695 + (.08012*20))
 ## [1] 6.615067
 ```
 
-```r
+``` r
 # now get probability
 6.615067 / (1+6.615067)
 ```
@@ -377,7 +379,7 @@ What if your response variable is binary, but the underlying construct you are t
 
 
 
-```r
+``` r
 death.4 &lt;- glm(NOT.premature ~ Intelligence_Self,
         family = binomial(link = "probit"), data = mortality)
 summary(death.4)
@@ -436,7 +438,7 @@ Why do we need another method?
 
 ---
 
-## Homoscedasticity
+### Homoscedasticity
 
 Homoscedasticity is the assumption that the variance of Y is constant across all levels of a predictor.
 
@@ -491,7 +493,7 @@ The weight is then estimated as the inverse of the predicted value for a case.
 Using our own data:
 
 
-```r
+``` r
 ols.model = lm(problems ~ calm, data = Data)
 library(broom)
 ols_aug = augment(ols.model)
@@ -512,7 +514,7 @@ head(ols_aug)
 ---
 
 
-```r
+``` r
 # square residuals
 ols_aug$resid_sq = ols_aug$.resid^2
 # regress squared resid on predictor
@@ -521,7 +523,7 @@ weight.mod = lm(resid_sq ~ calm, data = ols_aug)
 
 .pull-left[
 
-```r
+``` r
 coef(ols.model)
 ```
 
@@ -534,7 +536,7 @@ coef(ols.model)
 
 .pull-right[
 
-```r
+``` r
 coef(weight.mod)
 ```
 
@@ -546,7 +548,7 @@ coef(weight.mod)
 ]
 
 
-```r
+``` r
 # extract predicted values
 pred.resid = predict(weight.mod)
 head(pred.resid)
@@ -557,7 +559,7 @@ head(pred.resid)
 ## 0.7982546 0.7527584 0.7366885 0.8530291 0.7849316 0.8886457
 ```
 
-```r
+``` r
 # find inverse of predicted values
 # use absolute value if some of your predicted values are negative  
 est.weights = 1/abs(pred.resid) 
@@ -567,13 +569,13 @@ est.weights = 1/abs(pred.resid)
 ---
 
 
-```r
+``` r
 wls.model = lm(problems ~ calm, data = Data, weights = est.weights)
 ```
 
 
 
-```r
+``` r
 tidy(ols.model)
 ```
 
@@ -587,7 +589,7 @@ tidy(ols.model)
 
 
 
-```r
+``` r
 tidy(wls.model)
 ```
 
@@ -607,79 +609,12 @@ tidy(wls.model)
 ---
 ### When to use WLS
 
-WLS is a **robust** method of estimation. **Robust statistics** are statistics with good performance for data drawn from a wide range of probability distributions, especially for distributions that are not normal." .small[_([Wikipedia](https://en.wikipedia.org/wiki/Robust_statistics))_]
+WLS is a **robust** method of estimation. "**Robust statistics** are statistics with good performance for data drawn from a wide range of probability distributions, especially for distributions that are not normal." .small[_([Wikipedia](https://en.wikipedia.org/wiki/Robust_statistics))_]
 
 Use when...
 - Dealing with heteroscedasticity
 - You know already that points should not be treated equally (some should be weighed more than others); do you know that some of your data was measured with less error?
 
----
-class: inverse, center, middle
-
-# Totally Random + HW Assignment
-
----
-
-## Checking Assumptions
-
-
-```r
-library(performance)
-library(palmerpenguins)
-
-model1 = lm(body_mass_g ~ bill_length_mm, data = penguins)
-summary(model1)
-```
-
-```
-## 
-## Call:
-## lm(formula = body_mass_g ~ bill_length_mm, data = penguins)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -1762.08  -446.98    32.59   462.31  1636.86 
-## 
-## Coefficients:
-##                Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)     362.307    283.345   1.279    0.202    
-## bill_length_mm   87.415      6.402  13.654   &lt;2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 645.4 on 340 degrees of freedom
-##   (2 observations deleted due to missingness)
-## Multiple R-squared:  0.3542,	Adjusted R-squared:  0.3523 
-## F-statistic: 186.4 on 1 and 340 DF,  p-value: &lt; 2.2e-16
-```
-
-
----
-## Checking Assumptions
-
-.small[
-
-```r
-check_model(x = model1)
-```
-
-![](21-random_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
-]
-
-
----
-
-class: inverse
-
-## End of semester
-
-- Tuesday = Resampling methods, namely bootstrapping
-
-- Thursday = Machine learning; READ THE YARKONI &amp; WESTFALL PAPER!
-
-- Tuesday = Wrapping up, future directions, review
-
-- Thursday = Exam 3. Oral exams will open after that. 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

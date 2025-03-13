@@ -15,7 +15,7 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 **PR = Peer Review**
 
 | Week | Date | Topic | Readings | HW Due |   |
-|----|----|----|----|----|----|
+|------------|------------|------------|------------|------------|------------|
 | 1 | 1/14 | Recap & GLM Intro |  |  |  |
 | \- | 1/16 | Data Management | [Human Fallibility](readings/HumanFallibility_DataManagement.pdf) |  |  |
 | 2 | 1/21 | GLM & Categorical Predictors | Ch. 13-14 (review) |  |  |
@@ -37,13 +37,13 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 | 10 | 3/18 | Interactions V (Polynomials) |  |  |  |
 | \- | 3/20 | Logistic Regression/GLM | [Cohen Logistic](readings/Logistic-Cohen.pdf) |  |  |
 | 11 | 3/25 | Random/Flex/Catch-up |  |  |  |
-| \- | 3/27 | **Exam 2** |  | **HW 4 DUE 3/28 11:59pm** |  |
+| \- | 3/27 | **Exam 2** |  |  |  |
 | 12 | 4/1 | Machine Learning | [Yarkoni & Westfall](readings/Yarkoni%20Westfall%20PPS.pdf) |  |  |
 | \- | 4/3 | Resampling Methods *Guest Lecture: Ran Zhang* |  |  |  |
 | 13 | 4/8 | Qualitative Methods *Guest Lecture: Amy Eyler* |  |  |  |
 | \- | 4/10 | Bayes Intro |  |  |  |
 | 14 | 4/15 | MLM Intro |  |  |  |
-| \- | 4/17 | MLM Intro |  | **HW 5 DUE 4/18 11:59pm** |  |
+| \- | 4/17 | MLM Intro |  | **HW 4 DUE (double assignment) 4/18 11:59pm** |  |
 | 15 | 4/22 | AI Intro *Guest Lecture: Josh Oltmanns* |  |  |  |
 | \- | 4/24 | **FINAL** |  |  |  |
 
