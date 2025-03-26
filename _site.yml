@@ -45,6 +45,8 @@ navbar:
         href: "lectures/21-random.html"
       - text: "18-Machine Learning"
         href: "lectures/23-ml.html"
+      - text: "Exam 2 Review"
+        href: "lectures/18-reviewExam2_ke.html"
     - text: PDF Slides
       menu:
       - text: "1-Intro"
@@ -85,6 +87,8 @@ navbar:
         href: "lectures/21-random.pdf"
       - text: "18-Machine Learning"
         href: "lectures/23-ml.pdf"
+      - text: "Exam 2 Review"
+        href: "lectures/18-reviewExam2_ke.pdf"
     - text: Homework
       href: homework.html
   right:
