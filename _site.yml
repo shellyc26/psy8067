@@ -43,10 +43,12 @@ navbar:
         href: "lectures/19-logistic.html"
       - text: "17-Random"
         href: "lectures/21-random.html"
-      - text: "18-Machine Learning"
-        href: "lectures/23-ml.html"
       - text: "Exam 2 Review"
         href: "lectures/18-reviewExam2_ke.html"
+      - text: "18-Machine Learning"
+        href: "lectures/23-ml.html"
+      - text: "19-Resampling"
+        href: "lectures/21-bootstrapping_XZ.html"
     - text: PDF Slides
       menu:
       - text: "1-Intro"
@@ -85,10 +87,12 @@ navbar:
         href: "lectures/19-logistic.pdf"
       - text: "17-Random"
         href: "lectures/21-random.pdf"
-      - text: "18-Machine Learning"
-        href: "lectures/23-ml.pdf"
       - text: "Exam 2 Review"
         href: "lectures/18-reviewExam2_ke.pdf"
+      - text: "18-Machine Learning"
+        href: "lectures/23-ml.pdf"
+      - text: "19-Resampling"
+        href: "lectures/21-bootstrapping_XZ.pdf"
     - text: Homework
       href: homework.html
   right:
