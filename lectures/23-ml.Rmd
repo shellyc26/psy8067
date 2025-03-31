@@ -79,17 +79,25 @@ Statistical Tensions
 
 ### Explanation vs. Prediction
 
-#### What do we do in Psychology and Neuroscience?
-
-#### What about regression?
-
---
-
-#### Point of Yarkoni & Westfall (2017)
-- How far have we really come in the past 10 years? 20 years? 30 years? ...not as far as we'd like
-- *We should spend more time and resources developing predictive models than we currently do*
+#### What do we do typically do in Psychology?
 
 ---
+class: inverse, center, middle
+
+
+# How far have we come in the past 10 years? 20 years? 30 years? 
+
+# How do you *feel* about it? 
+
+---
+class: inverse, center, middle
+
+Yarkoni & Westfall (2017) argue that we should spend more time creating predictive models
+
+At the very least, maybe there are some lessons we can take away from the ML world that can potentially help us
+
+---
+
 ### Maybe Helpful Definitions
 
 **Machine Learning (ML)** is the process of feeding previous observations into a computer and using the computer to generate predictions for new observations. AKA:
@@ -106,7 +114,15 @@ Statistical Tensions
 
 **Testing** occurs by verifying predictions on previously unobserved data; think of this as *evaluating*
 
+> How might this work in regression land? 
+
+---
+
+### A note
+
 **Artificial Intelligence** is not the same as machine learning. AI is the simulation of human intelligence by computers; AI systems are generally trained with machine learning approaches.
+
+Last class of the semester, we will hear more of this from Josh Oltmanns. 
 
 ---
 
@@ -136,7 +152,7 @@ Statistical Tensions
 
 --
 
-- ML classes in CS department
+- ML classes in CS or SDS department
 
 - Wouter Kool for reinforcement learning
 
@@ -145,35 +161,41 @@ Statistical Tensions
 - Poli Sci department for dealing with categorical outcomes
 
 ---
-
-## Machine Learning Algorithms
-.pull-left[
-- ordinary least squares linear regression
-- logistic regression
-- k-means clustering
-- nearest neighbor
-- naive Bayes
-- ridge regression
-- LASSO regression
-- support vector machine
-]
-
-.pull-right[
-- random forest
-- Gaussian process estimator
-- multilayer perceptron (deep net)
-- convolutional network
-- recurrent network
-- generalized adversarial network
-]
-
----
-### Some terminology
+### Terminology that matters
 
 **Overfitting** is when we *mistakenly* fit sample-specific noise as if it were actually a signal. 
 
 - If our model has a $R^2 = .9$, we do an excellent job of explaining variance *in our sample*. 
 - OLS models tend to be overfit because they minimize error for a specific sample
+
+
+
+.tiny[Following slides courtesy of Dennis Barbour]
+
+---
+
+### Let's say we have these data
+
+![](images/of1.png)
+---
+
+![](images/of2.png)
+.small[M = parameters, red = line we are fitting, green = "truth"]
+--
+.small[**Why _shouldn't_ we use all 9 parameter?**]
+
+---
+### Why not use all 9 parameters? 
+
+![](images/of3.png)
+---
+class: inverse, center, middle
+
+# Overfitting is a big problem!
+
+--
+
+.small[Underfitting means we can't capture a relationship at all -- not as big of a problem for us]
 
 ---
 
@@ -184,8 +206,6 @@ Statistical Tensions
 **Variance** refers to how much estimates tend to jump around
 
 **Bias-Variance Tradeoff** we can reduce variance around our estimates but at the expense of increasing bias of estimates and vice versa
-
-.tiny[**Underfitting** means we can't capture a relationship at all -- not as big of a problem for us]
 
 ---
 
@@ -507,13 +527,38 @@ Rather than estimating degree of randomness; in machine learning, we're trying t
 ---
 class: inverse
 
-## Enjoy the rest of the semester!!
+### Enjoy the rest of the semester!!
 
 - Ran talking about Resampling Methods
 
-- Josh Jackson talking about Bayes & MLM
+- Josh Jackson talking about Bayes & MLM. *Taking over as instructor!*
 
 - Amy Eyeler talking about Qualitative Methods
 
-- Josh Oltmans talking about AI
+- Josh Oltmanns talking about AI
+
+- *Hint for Exam 3: you do NOT get to forget p-values or confidence intervals.*
+
+---
+## Machine Learning Algorithms
+.pull-left[
+- ordinary least squares linear regression
+- logistic regression
+- k-means clustering
+- nearest neighbor
+- naive Bayes
+- ridge regression
+- LASSO regression
+- support vector machine
+]
+
+.pull-right[
+- random forest
+- Gaussian process estimator
+- multilayer perceptron (deep net)
+- convolutional network
+- recurrent network
+- generalized adversarial network
+]
+
 
