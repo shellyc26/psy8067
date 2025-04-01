@@ -473,6 +473,14 @@ coef
 $\lambda = 0$ is pretty close to our OLS solution
 
 ---
+### Original OLS
+
+```{r}
+summary(model.lm)
+```
+
+
+---
 
 ```{r}
 coef = coef(lasso.mod, s = 1)

@@ -381,11 +381,11 @@ cv.model
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold) 
-## Summary of sample sizes: 107, 106, 106, 106, 106, 106, ... 
+## Summary of sample sizes: 106, 106, 107, 106, 106, 106, ... 
 ## Resampling results:
 ## 
-##   RMSE      Rsquared   MAE    
-##   1.529142  0.3615326  1.22586
+##   RMSE      Rsquared   MAE     
+##   1.527854  0.3420775  1.222621
 ## 
 ## Tuning parameter 'intercept' was held constant at a value of TRUE
 ```
@@ -672,6 +672,42 @@ coef
 `\(\lambda = 0\)` is pretty close to our OLS solution
 
 ---
+### Original OLS
+
+
+``` r
+summary(model.lm)
+```
+
+```
+## 
+## Call:
+## lm(formula = Stress ~ Anxiety * Support * group, data = stress.data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.6554 -1.0681 -0.0253  0.9548  3.5964 
+## 
+## Coefficients:
+##                          Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)             -2.321190   1.399130  -1.659 0.099960 .  
+## Anxiety                  0.607530   0.159908   3.799 0.000238 ***
+## Support                  0.645880   0.137943   4.682 8.15e-06 ***
+## groupTx                 -1.276628   2.578699  -0.495 0.621540    
+## Anxiety:Support         -0.044739   0.018801  -2.380 0.019052 *  
+## Anxiety:groupTx          0.051297   0.301559   0.170 0.865238    
+## Support:groupTx          0.066630   0.214902   0.310 0.757112    
+## Anxiety:Support:groupTx  0.003957   0.029037   0.136 0.891842    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.483 on 110 degrees of freedom
+## Multiple R-squared:  0.4127,	Adjusted R-squared:  0.3753 
+## F-statistic: 11.04 on 7 and 110 DF,  p-value: 1.65e-10
+```
+
+
+---
 
 
 ``` r
@@ -713,8 +749,8 @@ cvfit
 ## Measure: Mean-squared Error 
 ## 
 ##      Lambda Index Measure     SE Nonzero
-## min 0.00279    64   2.329 0.3674       6
-## 1se 0.20138    18   2.664 0.4330       2
+## min 0.01633    45    2.27 0.2867       5
+## 1se 0.18349    19    2.55 0.2709       2
 ```
 
 ]
@@ -725,7 +761,7 @@ cvfit
 plot(cvfit)
 ```
 
-![](23-ml_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](23-ml_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 ]
 
 
