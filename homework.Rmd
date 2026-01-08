@@ -10,24 +10,20 @@ output:
 
 Homework assignments will appear here. You'll be able to access the assignment, as well as any data that may be used. Homework assignments will be posted **at least one week** before they are due. Submit homework assignments via Canvas by the due date and time.
 
-Note that this semester you will be making your RMarkdown/RNotebook (anything with the extension `.Rmd`) files on your own. If you need help, within RStudio, go to Help > Cheatsheets and select either the R Markdown Cheat Sheet or the R Markdown Reference Guide for help with formatting. Please contact us ASAP with any questions or issues when knitting to HTML.
+Note that this semester you will be making your RMarkdown/RNotebook/Quarto (anything with the extension `.Rmd` or `.qmd`) files on your own. If you need help, within RStudio, go to Help > Cheatsheets and select either the R Markdown Cheat Sheet or the R Markdown Reference Guide for help with formatting. Please contact us ASAP with any questions or issues when knitting to HTML.
 
 ## Homework 1
-- HW 1 is posted [here](homework/homework1.html)
-- Due on **Wednesday 2/9 by 11:59pm**
+- HW 1 will be posted here
+- Due on **Sunday 2/8 by 11:59pm**
 
 
 ## Homework 2
-- HW 2 is posted [here](homework/homework2.html)
-- Due on **Wednesday 2/19 by 11:59pm**
+- HW 2 will be posted here
+- Due on **Sunday 3/22 by 11:59pm**
 
 
 ## Homework 3
-- HW 3 is posted [here](homework/homework4.html)
-- Due on **Friday 3/7 by 11:59pm**
-
-## Homework 4 (double assignment!)
-- HW 4 is posted [here](homework/homework5.html)
-- Due on **Friday 4/18 by 11:59pm**
+- HW 3 will be posted here
+- Due on **Sunday 4/19 by 11:59pm**
 
 
