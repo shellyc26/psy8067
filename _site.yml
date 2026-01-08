@@ -1,7 +1,7 @@
 name: Quantitative Methods II
 output_dir: "."
 navbar:
-  title: "Psych 5067"
+  title: "Psych 8067"
   left:
     - text: Syllabus
       href: schedule.html
@@ -9,97 +9,17 @@ navbar:
       menu:
       - text: "1-Intro"
         href: "lectures/1-introduction.html"
-      - text: "2-Data Management"
-        href: "lectures/DataManagementActivity/index.html"
-      - text: "3-GLM"
-        href: "lectures/3-glm.html"
-      - text: "4-Correlations"
-        href: "lectures/4-correlation.html"
-      - text: "5-Univar Reg"
-        href: "lectures/5-regression.html"
-      - text: "6-Univar Reg Cont"
-        href: "lectures/6-regression.html"
-      - text: "7-Partialling"
-        href: "lectures/7-partial.html"
-      - text: "8-Mult Reg I"
-        href: "lectures/8-m_regression.html"
-      - text: "9-Mult Reg II"
-        href: "lectures/9-m_regression.html"
-      - text: "Exam 1 Review"
-        href: "lectures/reviewExam1-KeNing.html"
-      - text: "10-Diagnostics"
-        href: "lectures/11-diagnostics.html"
-      - text: "11-Interactions I"
-        href: "lectures/12-interactions.html"
-      - text: "12-Interactions II"
-        href: "lectures/14-interactions.html"
-      - text: "13-Interactions III"
-        href: "lectures/15-interactions.html"
-      - text: "14-Interactions IV"
-        href: "lectures/17-interactions.html"
-      - text: "15-Interactions V"
-        href: "lectures/18-interactions.html"
-      - text: "16-Logistic Regression"
-        href: "lectures/19-logistic.html"
-      - text: "17-Random"
-        href: "lectures/21-random.html"
-      - text: "Exam 2 Review"
-        href: "lectures/18-reviewExam2_ke.html"
-      - text: "18-Machine Learning"
-        href: "lectures/23-ml.html"
-      - text: "19-Resampling"
-        href: "lectures/21-bootstrapping_XZ.html"
     - text: PDF Slides
       menu:
       - text: "1-Intro"
         href: "lectures/1-introduction.pdf"
-      - text: "2-Data Management"
-        href: "lectures/DataManagementActivity.pdf"
-      - text: "3-GLM"
-        href: "lectures/3-glm.pdf"
-      - text: "4-Correlations"
-        href: "lectures/4-correlation.pdf"
-      - text: "5-Univar Reg"
-        href: "lectures/5-regression.pdf"
-      - text: "6-Univar Reg Cont"
-        href: "lectures/6-regression.pdf"
-      - text: "7-Partialling"
-        href: "lectures/7-partial.pdf"
-      - text: "8-Mult Reg I"
-        href: "lectures/8-m_regression.pdf"
-      - text: "9-Mult Reg II"
-        href: "lectures/9-m_regression.pdf"
-      - text: "Exam 1 Review"
-        href: "lectures/reviewExam1-KeNing.pdf"
-      - text: "10-Diagnostics"
-        href: "lectures/11-diagnostics.pdf"
-      - text: "11-Interactions I"
-        href: "lectures/12-interactions.pdf"
-      - text: "12-Interactions II"
-        href: "lectures/14-interactions.pdf"
-      - text: "13-Interactions III"
-        href: "lectures/15-interactions.pdf"
-      - text: "14-Interactions IV"
-        href: "lectures/17-interactions.pdf"
-      - text: "15-Interactions V"
-        href: "lectures/18-interactions.pdf"
-      - text: "16-Logistic Regression"
-        href: "lectures/19-logistic.pdf"
-      - text: "17-Random"
-        href: "lectures/21-random.pdf"
-      - text: "Exam 2 Review"
-        href: "lectures/18-reviewExam2_ke.pdf"
-      - text: "18-Machine Learning"
-        href: "lectures/23-ml.pdf"
-      - text: "19-Resampling"
-        href: "lectures/21-bootstrapping_XZ.pdf"
     - text: Homework
       href: homework.html
   right:
     - text: GitHub
-      href: https://github.com/shellyc26/psy5067
+      href: https://github.com/shellyc26/psy8067
     - text: Slack
-      href: https://quantitativem-fbj8840.slack.com
+      href: https://quantiiworkspace.slack.com
 output:
   html_document:
     lib_dir: site_libs
