@@ -3,7 +3,7 @@
   <head>
     <title>Introduction</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="my-theme.css" type="text/css" />
   </head>
@@ -38,24 +38,28 @@ class: center, middle, inverse, title-slide
 
 ## Goals for semester
 
-- Analyze and interpret general(ized) linear models (aka regression models; aka ANOVA)
+- Analyze and interpret general(ized) linear models (aka regression models)
+
+- Build **intuition**
 
 - Be able to graph your data
 
 - Identify and diagnose problems when they arise
 
+- Next level methods
+
 ---
 ### Important links
 
-- [Class Website](https://shellyc26.github.io/psy5067/index.html)
+- [Class Website](https://shellyc26.github.io/psy8067/index.html)
 
-- [Slack Workspace](https://quantitativem-fbj8840.slack.com); here for answering questions, posting stats/`R` memes and gifs, building community
+- [Slack Workspace](https://quantiiworkspace.slack.com); here for answering questions, posting stats/`R` memes and gifs, building community
 
-- [Canvas](https://wustl.instructure.com/courses/126223); where you'll turn in your homeworks
+- [Canvas](https://wustl.instructure.com/courses/171810); where you'll turn in your homeworks
 
 - [LSR](https://learningstatisticswithr.com/book/) &amp; [ISLR](https://www.statlearning.com/); textbooks
 
-- Example data from class can be found on our [GitHub site](https://github.com/shellyc26/psy5067/tree/master/data) in the `data` folder. 
+- Example data from class can be found on our [GitHub site](https://github.com/shellyc26/psy8067/tree/master/data) in the `data` folder. 
 
 ---
 ## Important information
@@ -83,35 +87,26 @@ class: center, middle, inverse, title-slide
 ---
 ## Two AIs
 
-- Ke Ning
+- Ben Hardin
 
-- Ran Zhang
+- Ethan Kinstler
 
 Both incredible. USE THEM TO YOUR ADVANTAGE! **Set up meetings with them**. Ask them `R` questions.
-
----
-## Goals for today  
-
-- Quick Review of last semester
-
-- Overview of this semester
-
-- Syllabus
 
 ---
 ### Pragmatics
 What you *need* to know:
 
 - R, RStudio 
-- Rmarkdown (look at cheatsheets!) and how these convert or "knit" into html/pdf files
+- Rmarkdown/Quarto (look at cheatsheets!) and how these convert or "knit" into html/pdf files
 - Keep it visual: `ggplot`
+- R Projects
 
 --
 
 What you *should* know or strive to learn:
-- Keep organized: R Projects
 - Keeping track/sharing: osf, github (recommended)
-- Keep it simple and readable: `dplyr` &amp; `tidyverse` (recommended)
+- `tidyverse` (recommended)
 
 ---
 ### Visualizing data
@@ -128,7 +123,7 @@ What you *should* know or strive to learn:
   5. If possible include raw data and/or the distribution
 
 ---
-## What did we cover last semester?
+## What was covered last semester?
 
 - A lot!
 - Lots of theoretical probability distributions
@@ -136,7 +131,8 @@ What you *should* know or strive to learn:
 - Lots of statistical tests
   * All had assumptions, most had some modifications (homogeneity of variances etc.)
 
----
+
+???
 ### Running models
 
 `\(Y = X + E\)` 
@@ -153,7 +149,7 @@ t.1 &lt;- t.test(y ~ x, data = d)
 # y is cont and x is a categorical/nominal (dichotomous) factor
 ```
 
----
+
 ## Comparing models
 
 $$ SSW(restricted) - SSW(full) / stuff $$
@@ -235,6 +231,18 @@ Theme 2: What does `\(0\)` mean?
 
 
 ---
+## What I hear you know (from Josh)
+
+- Can you get an individual's predicted score &amp; residual from an equation?
+- Can you calculate b0 &amp; b1?
+- Can you take the output from R and write a regression equation, being very specific?
+- Can you tell me if you have a "good" model?
+- Is a coefficient meaningful? How do you know and can you calculate it?
+- Can you plot a regression, confidence band, and prediction band? 
+
+_**Is this correct?**_
+
+---
 class: inverse
 ## Next time
 
@@ -246,13 +254,14 @@ class: inverse
 
 
 
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "github",
-"highlightLines": true,
-"countIncrementalSlides": false
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
