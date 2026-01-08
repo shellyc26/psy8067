@@ -15,43 +15,43 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 **PR = Peer Review**
 
 | Week | Date | Topic | Readings | HW Due |   |
-|----|----|----|----|----|----|
-| 1 | 1/14 | Recap & GLM Intro |  |  |  |
-| \- | 1/16 | Data Management | [Human Fallibility](readings/HumanFallibility_DataManagement.pdf) |  |  |
-| 2 | 1/21 | GLM & Categorical Predictors | Ch. 13-14 (review) |  |  |
-| \- | 1/23 | Correlation | [Chapter from Revelle](readings/CorrelationRevelle.pdf) |  |  |
-| 3 | 1/28 | Catch up |  |  |  |
-| \- | 1/30 | Univariate Regression | [MR Cohen](readings/Cohen-MR.pdf); Ch. 15.1 - 15.2 |  |  |
-| 4 | 2/4 | Univariate Regression |  |  |  |
-| \- | 2/6 | Partial Correlations | Ch. 15.3 - end of chapter | **HW 1 DUE 2/9 11:59pm** |  |
-| 5 | 2/11 | Multiple Regression |  |  |  |
-| \- | 2/13 | Multiple Regression |  |  |  |
-| 6 | 2/18 | **Exam 1** |  | **HW 2 DUE 2/19 11:59pm** |  |
-| \- | 2/20 | Assumptions and Diagnostics |  |  |  |
-| 7 | 2/25 | Interactions I |  |  |  |
-| \- | 2/27 | Interactions II (Factorial ANOVA) | Ch. 16, [Myers Ch. 9](readings/anova1-myers.pdf) |  |  |
-| 8 | 3/4 | Interactions III | [Myers Ch. 10](readings/anova2-myers.pdf) |  |  |
-| \- | 3/6 | Interactions IV (Power & Effect Size) |  | **HW 3 DUE 3/7 11:59pm** |  |
-| 9 | 3/11 | **Spring Break** |  |  |  |
-| \- | 3/13 | **Spring Break** |  |  |  |
-| 10 | 3/18 | Interactions V (Polynomials) |  |  |  |
-| \- | 3/20 | Logistic Regression/GLM | [Cohen Logistic](readings/Logistic-Cohen.pdf) |  |  |
-| 11 | 3/25 | Random/Flex/Catch-up |  |  |  |
-| \- | 3/27 | **Exam 2** |  |  |  |
-| 12 | 4/1 | Machine Learning | [Yarkoni & Westfall](readings/Yarkoni%20Westfall%20PPS.pdf) |  |  |
-| \- | 4/3 | Resampling Methods *Guest Lecture: Ran Zhang* |  |  |  |
-| 13 | 4/8 | Qualitative Methods *Guest Lecture: Amy Eyler* |  |  |  |
-| \- | 4/10 | Bayes Intro |  |  |  |
-| 14 | 4/15 | MLM Intro |  |  |  |
-| \- | 4/17 | MLM Intro |  | **HW 4 DUE (double assignment) 4/18 11:59pm** |  |
-| 15 | 4/22 | AI Intro *Guest Lecture: Josh Oltmanns* |  |  |  |
-| \- | 4/24 | **FINAL** |  |  |  |
+|------------|------------|------------|------------|------------|------------|
+| 1 | 1/13 | Recap & GLM Intro |  |  |  |
+| \- | 1/15 | Data Management | [Human Fallibility](readings/HumanFallibility_DataManagement.pdf) |  |  |
+| 2 | 1/20 | Correlations (Quant1) |  |  |  |
+| \- | 1/22 | Correlations | [Chapter from Revelle](readings/CorrelationRevelle.pdf) |  |  |
+| 3 | 1/27 | Partial Correlations | Ch. 15.3 - end of chapter |  |  |
+| \- | 1/29 | Multiple Regression |  |  |  |
+| 4 | 2/3 | Multiple Regression |  |  |  |
+| \- | 2/5 | Buffer/catch-up |  |  |  |
+| 5 | 2/10 | Assumptions and Diagnostics |  | **HW 1 DUE 2/8 11:59pm** |  |
+| \- | 2/12 | **Exam 1** |  |  |  |
+| 6 | 2/17 | Interactions I |  |  |  |
+| \- | 2/19 | Brief detour - ANOVA from Quant I |  |  |  |
+| 7 | 2/24 | Interactions II (Factorial ANOVA) | Ch. 16, [Myers Ch. 9](readings/anova1-myers.pdf) |  |  |
+| \- | 2/26 | Interactions III | [Myers Ch. 10](readings/anova2-myers.pdf) |  |  |
+| 8 | 3/3 | Interactions IV (Power & Effect Size) |  |  |  |
+| \- | 3/5 | Interactions V (Polynomials) |  |  |  |
+| 9 | 3/10 | **Spring Break** |  |  |  |
+| \- | 3/12 | **Spring Break** |  |  |  |
+| 10 | 3/17 | Logistic Regression/GLM | [Cohen Logistic](readings/Logistic-Cohen.pdf) |  |  |
+| \- | 3/19 | Random/Flex/Catch-up |  | **HW 2 DUE 3/22 11:59pm** |  |
+| 11 | 3/24 | **Exam 2** |  |  |  |
+| \- | 3/26 | Validity |  |  |  |
+| 12 | 3/31 | Machine Learning | [Yarkoni & Westfall](readings/Yarkoni%20Westfall%20PPS.pdf) |  |  |
+| \- | 4/2 | Resampling Methods |  |  |  |
+| 13 | 4/7 | Qualitative Methods |  |  |  |
+| \- | 4/9 | Bayes Intro |  |  |  |
+| 14 | 4/14 | MLM Intro |  |  |  |
+| \- | 4/16 | MLM Intro |  |  |  |
+| 15 | 4/21 | TBD |  | **HW 3 DUE 4/19 11:59pm** |  |
+| \- | 4/23 | **FINAL** |  |  |  |
 
 # Overview
 
 ### From the course catalog:
 
-Continuation of Psych 5066. Introduction to multiple regression/correlation analysis. Topics include bivariate and multiple correlation and regression, regression diagnostics, representation of nominal or qualitative variables, polynomials, logistic regression, interactions, ANOVA, analysis of covariance, repeated measures, power calculations, and Bayesian approaches to the general linear model
+Continuation of Psych 8066. Introduction to multiple regression/correlation analysis. Topics include bivariate and multiple correlation and regression, regression diagnostics, representation of nominal or qualitative variables, polynomials, logistic regression, interactions, ANOVA, analysis of covariance, repeated measures, power calculations, and Bayesian approaches to the general linear model
 
 ### Holistic view:
 
@@ -59,7 +59,7 @@ This course is the second in a two-course sequence that introduces necessary ski
 
 ### Prerequisites:
 
-Completion of Psych 5066
+Completion of Psych 8066
 
 ### Learning Objectives:
 
@@ -77,24 +77,24 @@ Completion of Psych 5066
 
 Your final grade is comprised of:
 
--   5 Homework: 5% each, 25% total
--   Exam 1: 30% (90% written, 10% oral)
--   Exam 2: 25% (90% written, 10% oral)
--   Exam 3: 20% (90% written, 10% oral)
+-   3 Homework: 7% each, 21% total
+-   Exam 1: 32% (90% written, 10% oral)
+-   Exam 2: 27% (90% written, 10% oral)
+-   Exam 3: 20% (85% written, 15% oral)
 
 ## Exams
 
-There are 3 exams total, each with a written portion and an oral portion. They will follow similar formats to last semester where the written portion is a little more math-heavy (although you will still be asked to write interpretations etc.) and the oral exam is a little more theoretical and/or applied in context.
+There are 3 exams total, each with a written portion and an oral portion. The written portion is a little more math-heavy (although you will still be asked to write interpretations etc.) and the oral exam is a little more theoretical and/or applied in context.
 
-The last exam is very similar to last semester, where it is technically a cumulative exam, but emphasis is on the last third of the class and broad topics/analytics from the first two thirds of the class.
+The last exam is technically a cumulative exam, but emphasis is on the last third of the class and broad topics/analytics from the first two thirds of the class.
 
-Together, the first exam is worth 30% of your grade, the second exam is worth 25% of your grade, and the last exam is worth 20% of your grade.
+Together, the first exam is worth 32% of your grade, the second exam is worth 27% of your grade, and the last exam is worth 20% of your grade.
 
-**New Rule**: If you have something going on in life that you think will impede you from doing your best on an exam, please come talk to me (even if it's like 5 minutes before we start!). Family emergency, sudden news of a loved one, illness, bereavement, etc. *Once you see an exam, you will not be able to make-up or retake the test.* I would much prefer that you talk to me and we agree that you take the exam at a later date, rather than trying to take it first, seeing how you do, then asking for a redo. You are graduate students, and I think by now you've learned that I'm not particularly scary -- I will always work with you and very much want you to succeed!
+**Rule**: If you have something going on in life that you think will impede you from doing your best on an exam, please come talk to me (even if it's like 5 minutes before we start!). Family emergency, sudden news of a loved one, illness, bereavement, etc. *Once you see an exam, you will not be able to make-up or retake the test.* I would much prefer that you talk to me and we agree that you take the exam at a later date, rather than trying to take it first, seeing how you do, then asking for a redo. I will work with you and very much want you to succeed!
 
 ## Homework assignments
 
-Homework assignments are intended to gauge your ability to apply the topics covered in class to the practice of data analysis. Homework assignments are to be done using `R` and RMarkdown; completed assignments should be submitted to Canvas. Please submit BOTH your **.Rmd** and **.html** file. Please do *not* use PDF or Word documents. There will be 5 assignments in total, each worth 5% of your grade.
+Homework assignments are intended to gauge your ability to apply the topics covered in class to the practice of data analysis. Homework assignments are to be done using `R` and RMarkdown/Quarto; completed assignments should be submitted to Canvas. Please submit BOTH your **.Rmd/.qmd** and **.html** file. Please do *not* use PDF or Word documents. There will be 3 assignments in total, each worth 7% of your grade.
 
 I will specify exact due dates, and all will be required by 11:59pm. Grading will go by the following rubric:
 
@@ -112,7 +112,13 @@ You may work with your peers on homework assignments, with the following caveats
 1.  Your code cannot be 100% identical to your peer's code (trust me, we can tell). It’s one thing to work together and consult, but it’s another thing to copy someone else’s assignment. If it is determined that someone copied an entire homework assignment, both parties will be given automatic zero.
 2.  If you work with someone, you *must* acknowledge them in the assignment itself.
 
-**AI Policy** Given the nature of written in-person exams and oral exams, there is no way to feasibly use AI in these settings. However, AI is particularly helpful for coding. I am OK with you using AI tools for your homework assignments with the following caveats: 1. You are the adult in the room. That means it's up to you to be able to carefully evaluate what it gives you. AI is often wrong so you'll need to be careful here. 2. You must paste the link to the "conversation" in your HW assignments so that we can back-trace what you prompted and how it responded. A url that does not work will be considered a violation of academic integrity. 3. If the AI is wrong and you do not catch it, this will count against you. You can't blame the AI.
+**AI Policy** Given the nature of written in-person exams and oral exams, there is no way to feasibly use AI in these settings. However, AI is particularly helpful for coding. I am OK with you using AI tools for your homework assignments with the following caveats:
+
+1.  You are the adult in the room. That means it's up to you to be able to carefully evaluate what it gives you. AI is often wrong so you'll need to be careful here.
+
+2.  You must paste the link to the "conversation" in your HW assignments so that we can back-trace what you prompted and how it responded. [*A url that does not work will be considered a violation of academic integrity.*]{.underline}
+
+3.  If the AI is wrong and you do not catch it, this will count against you. You can't blame the AI.
 
 ## Final Grading Rubric
 
@@ -144,7 +150,7 @@ All assignments and examinations are mandatory. If you need to miss an exam you 
 
 # Learning from Crappy Years
 
-Life has been weird since the pandemic. But instead of burying our heads in the sand and forgetting they existed, let's at least extract some things and incorporate them into our lives. For this class, here's what that means...
+Life has been weird since the pandemic. But instead of burying our heads in the sand and forgetting the pandemic happened, let's at least extract some things and incorporate them into our lives. For this class, here's what that means...
 
 ### Staying Connected
 
@@ -161,32 +167,19 @@ The past few years have been lonely. Although we're back in person, we still mig
 ### Attendance & In-person Etiquette
 
 -   I expect all students to be in class if they are able (not sick, not at a conference etc.). The best way to succeed is to come to class. Your chosen profession requires mastery of these skills! Come to class!
--   I will take attendance. **If you are absent for 2 class periods in a row, *and you have not reached out to either the instructor or the AIs*, I will assume that something is wrong.** When I have concerns about a graduate student, I contact their PI. I will do the same here.
+-   I will take attendance. **If you are absent for 2 class periods in a row, *and you have not reached out to either the instructor or the AIs*, I will assume that something is wrong.** When I have concerns about a graduate student, I contact their PI.
     -   If you reach out and say you need to miss class for whatever reason, then there is no need for me to contact your PI. I know you are alive and well (or at least getting well).
     -   This policy comes out of concern for you! It's hard to succeed if you aren't in class, and I really want you to succeed!
     -   You are adults. Come to class when you can. Let me know when you can't (quick email or Slack is OK).
+    -   If you are consistently late, I will speak to you one-on-one first, and then to your PI if you do not improve. It is remarkably rude to appear 15 minutes or more after class begins. You should not do this in your professional life. I'm not talking about one-off instances or weird circumstances. Those happen. But when you are late every single time, and I notice – something is wrong.
 -   **If you are not feeling well, don't come to class!!** You have access to the slides and you can ask a friend for notes.
--   If there is even a *hint* of being sick, I prefer you stay home. If you are 100% sure it's nothing contagious -- like allergies, I still ask that you wear a mask and sit away from other students.
 -   Most people will have electronics with them in class. Drinks should have a lid on them so that if they spill, we hopefully aren't ruining yours or another person's laptop/tablet/phone etc. Be careful!
--   Occasionally, I'll ask you to get into small groups and chat about something. Be aware that other people might not be super comfortable being physically close together. Maintain appropriate distance, and if a classmate asks you to step back a bit, please do so.
 
 # Policies & Resources
 
 **Contact Hours:**
 
 This is a 3 credit course and I anticipate that we will meet for all class periods scheduled. However, should anything arise that would prevent us from meeting in class, we will make up all contact hours. This will be addressed on a case-by-case basis but may include: synchronous Zoom class, asynchronous recording of lecture material, Canvas assignment etc.
-
-**UNIQUE TO SPRING 2025:**
-
-I am pregnant and due mid April. I have planned a great semester and therefore do not anticipate any disruptions to the course. Here is the plan:
-
--   See class schedule above for topics on a day-by-day basis
-
--   Once I go into labor, **Josh Jackson** will become the instructor for the course. You can reach him at [**j.jackson\@wustl.edu**](mailto:j.jackson@wustl.edu){.email}
-
--   Please note that all the same class policies will apply when he is in charge! The grading will remain the same, and the exams have already been made – he is simply the point person for grade related questions and will give the remaining lectures. The class does not magically change.
-
--   In the off chance that class must be canceled or rescheduled, note that all contact hours will be made up in some capacity as per the above Contact Hours section.
 
 **University Code of Conduct:**
 

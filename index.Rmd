@@ -1,7 +1,7 @@
 ---
-title: "Psych 5067: Quantitative Methods II"
+title: "Psych 8067: Quantitative Methods II"
 subtitle: "Department of Psychological & Brain Sciences, Washington University in St. Louis"
-author: "Spring 2025 | Somers Family Hall 216"
+author: "Spring 2026 | Somers Family Hall 216"
 date: "Tue/Thur 9:30am - 10:50am"
 output: 
   html_document:
@@ -13,17 +13,12 @@ output:
 - Pronouns: she/her
 - Office Hours: By appointment. [Make an appointment here](https://calendly.com/shelly-cooper/30min). 
 
-*After Shelly leaves* **Josh Jackson** -- [j.jackson@wustl.edu](mailto:j.jackson@wustl.edu)
-
-- Pronouns: he/him
-- Office Hours: By appointment
-
-**Ran Zhang** -- [ran.z@wustl.edu](mailto:ran.z@wustl.edu)
+**Ethan Kinstler** -- [e.i.kinstler@wustl.edu](mailto:e.i.kinstler@wustl.edu)
 
 - Pronouns: they/them
 - Office Hours: By appointment
 
-**Ke Ning** -- [k.ning@wustl.edu ](mailto:k.ning@wustl.edu)
+**Ben Hardin** -- [ben.h@wustl.edu](mailto:ben.h@wustl.edu)
 
 - Pronouns: he/him
 - Office Hours: By appointment

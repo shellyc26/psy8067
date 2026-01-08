@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Review for Exam 2</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/uwm-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Review for Exam 2
+]
+
+---
+
+
+
+
+### Review Problem Data
+
+
+```
+##    Sex Bwt Hwt
+## 1    F 2.0 7.0
+## 2    F 2.0 7.4
+## 3    F 2.0 9.5
+## 4    F 2.1 7.2
+## 5    F 2.1 7.3
+## 6    F 2.1 7.6
+## 7    F 2.1 8.1
+## 8    F 2.1 8.2
+## 9    F 2.1 8.3
+## 10   F 2.1 8.5
+```
+
+- The cats dataset includes sex, body weight, and heart weight data from 144 cats.
+
+- Ref: https://vincentarelbundock.github.io/Rdatasets/doc/MASS/cats.html
+
+---
+
+### Review Problem 1
+
+
+```
+## 
+## Call:
+## lm(formula = Hwt ~ Sex * Bwt, data = cats)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.7728 -1.0118 -0.1196  0.9272  4.8646 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   2.9813     1.8428   1.618 0.107960    
+## SexM         -4.1654     2.0618  -2.020 0.045258 *  
+## Bwt           2.6364     0.7759   3.398 0.000885 ***
+## SexM:Bwt      1.6763     0.8373   2.002 0.047225 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.442 on 140 degrees of freedom
+## Multiple R-squared:  0.6566,	Adjusted R-squared:  0.6493 
+## F-statistic: 89.24 on 3 and 140 DF,  p-value: &lt; 2.2e-16
+```
+
+- Interpret the coefficient for sex.
+- Interpret the coefficient for body weight.
+- Interpret the interaction term.
+- Interpret the statistical tests for both predictors and their interaction.
+- Graph the relationship between body weight and heart weight for female and male cats.
+
+---
+
+- We can transform body weight into a categorical variable:
+
+- meanBwt = mean(cats$Bwt)
+
+- cats$cBwt = as.factor(case_when(cats$Bwt &lt; meanBwt ~ 0, cats$Bwt &gt;= meanBwt ~ 1))
+
+---
+
+### Review Problem 2
+
+
+```
+## 
+## Call:
+## lm(formula = Hwt ~ Sex * cBwt, data = cats)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.6246 -1.1246 -0.2218  1.0768  7.7754 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   9.0190     0.2674  33.731   &lt;2e-16 ***
+## SexM          0.3060     0.3828   0.799   0.4255    
+## cBwt1         1.7210     0.8198   2.099   0.0376 *  
+## SexM:cBwt1    1.6786     0.8943   1.877   0.0626 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.733 on 140 degrees of freedom
+## Multiple R-squared:  0.5041,	Adjusted R-squared:  0.4934 
+## F-statistic: 47.43 on 3 and 140 DF,  p-value: &lt; 2.2e-16
+```
+
+- What is this kind of model called?
+- Interpret all coefficients. What changed?
+- Which model do you prefer?
+
+---
+
+### Review Problem 3
+
+- Imagine the researcher also collected age data for the cats in this dataset. 
+
+- They found a model using age and body weight to predict heart weight provided a better fit than the model using sex and body weight to predict heart weight. 
+
+- However, they suspect the relationships between age and body weight on heart weight may resemble power curves. 
+
+- If this is true, what does it mean for the model they ran? 
+
+- How can we check if it is true?
+
+---
+
+### Review Problem 4
+
+- The researcher hypothesizes that cats with higher body weight are more likely to be male.
+
+- What kind of regression model can they run to test this hypothesis?
+
+- Write down the equation for the appropriate regression model. What does the coefficient mean?
+
+- Assume the research runs this model and finds a significant effect of body weight on sex that aligns with their hypothesis. Graph the relationship between body weight and sex.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
