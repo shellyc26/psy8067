@@ -39,8 +39,8 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 | 11 | 3/24 | **Exam 2** |  |  |  |
 | \- | 3/26 | Validity |  |  |  |
 | 12 | 3/31 | Machine Learning | [Yarkoni & Westfall](readings/Yarkoni%20Westfall%20PPS.pdf) |  |  |
-| \- | 4/2 | Resampling Methods |  |  |  |
-| 13 | 4/7 | Qualitative Methods |  |  |  |
+| \- | 4/2 | Qualitative Methods *– Dr. Leath* |  |  |  |
+| 13 | 4/7 | Resampling Methods |  |  |  |
 | \- | 4/9 | Bayes Intro |  |  |  |
 | 14 | 4/14 | MLM Intro |  |  |  |
 | \- | 4/16 | MLM Intro |  |  |  |
