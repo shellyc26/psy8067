@@ -4,7 +4,6 @@ output:
   xaringan::moon_reader:
     lib_dir: libs
     css: ["xaringan-themer.css", "my-theme.css"]
-    incremental: true
     nature:
       highlightStyle: github
       highlightLines: true
@@ -29,47 +28,30 @@ output:
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
-style_mono_accent(base_color = "#17139C",link_color = "#DD3E3E")
+style_mono_accent(base_color = "#17139C",link_color = "#DD3E3E", base_font_size = "18px")
 
 ```
 
 ```{r, echo = F, warning = F, message = F}
 library(psych)
 library(tidyverse)
+library(MASS)
+library(ggExtra)
+library(RColorBrewer)
+purples = brewer.pal(n = 3, name = "Purples")
 ```
 
-## Last time/this time
 
-- Looked at glm models and showed how they are the same as our old friends, *t*-tests and ANOVAs, just with categorical predictors
-
-- Moving toward continuous predictor models
----
 ## Relationships
 
 - What is the relationship between IV and DV?
 
 - Measuring relationships depend on type of measurement
 
-- You have primarily been working with categorical IVs (*t*-test, chi-square)
+- You have primarily been working with categorical IVs (*t*-test, ANOVA)
 
----
-## Scatter Plot with best fit line
-```{r,echo=FALSE, message=FALSE, cache=TRUE, warning=FALSE}
-library(psych)
-library(psychTools)
-library(tidyverse)
-library(RColorBrewer)
-galton.data <- galton
-purples = brewer.pal(n = 3, name = "Purples")
-```
+- We are moving towards continuous predictor models
 
-```{r, echo=FALSE, cache=TRUE, warning=FALSE, message=FALSE}
-ggplot(galton.data, aes(x=parent, y=child)) +
-    geom_jitter() +    
-    geom_smooth(method=lm,   # Add linear regression line
-                se=FALSE) +     # Don't add shaded confidence region
-    labs(x = "parent height", y = "child height")
-```
 
 ---
 ## Review of Dispersion
@@ -99,6 +81,29 @@ $$\large\sigma = \sqrt{\frac{\sum{(x-\mu)^2}}{N}}$$
 
 ---
 
+.pull-left[
+### Population Variability
+
+**Sums of squares**
+$$\small SS = \Sigma(X_i-\mu_x)^2$$
+**Variance**
+$$\small \sigma^2 = \frac{\Sigma(X_i-\mu_x)^2}{N} = \frac{SS}{N}$$
+**Standard devation**
+$$\tiny \sigma = \sqrt{\frac{\Sigma(X_i-\mu_x)^2}{N}}= \sqrt{\frac{SS}{N}} = \sqrt{\sigma^2}$$]
+
+
+.pull-right[
+### Sample variability
+
+**Sums of squares**
+$$\small SS = \Sigma(X_i-\bar{X})^2$$
+**Variance**
+$$\small s^2 = \frac{\Sigma(X_i-\bar{X})^2}{N-1} = \frac{SS}{N-1}$$
+**Standard deviation**
+$$\tiny s = \sqrt{\frac{\Sigma(X_i-\bar{X})^2}{N-1}}= \sqrt{\frac{SS}{N-1}} = \sqrt{s^2}$$]
+
+---
+
 ## Review of Dispersion
 
 Formula for standard error of the mean?
@@ -116,46 +121,80 @@ $$\sigma_M = \frac{\hat{s}}{\sqrt{N}}$$
 - to look at continuous variable associations we need to think in terms of how variables relate to one another
 
 ---
-## Associations
+## Bi-variate descriptives
 
-Covariation (cross products)
+### Covariation 
 
-**Sample:**
+"Sum of the cross-products"
 
-$$\large SS = {\sum{(x-\bar{x})(y-\bar{y})}}$$
 
-**Population:**
+### Population
+$$SP_{XY} =\Sigma(X_i−\mu_X)(Y_i−\mu_Y)$$
 
-$$SS = {\sum{{(x-\mu_{x}})(y-\mu_{y})}}$$
+### Sample
+$$ SP_{XY} =\Sigma(X_i−\bar{X})(Y_i−\bar{Y})$$
+
+
+???
+
+**What does a large, positive SP indicate?**
+A positive relationship, same sign
+
+**What does a large, negatve SP indicate?**
+A negative relationship, different sign
+
+**What does SP close to 0 indicate?**
+No relationship
+
+
 
 ---
-## Associations
 
-**Sample:**
+## Covariance
+Sort of like the variance of two variables
 
-$$\large cov_{xy} = {\frac{\sum{(x-\bar{x})(y-\bar{y})}}{N-1}}$$
+### Population
+$$\sigma_{XY} =\frac{\Sigma(X_i−\mu_X)(Y_i−\mu_Y)}{N}$$
 
-**Population:**
+### Sample
+$$s_{XY} = cov_{XY} =\frac{\Sigma(X_i−\bar{X})(Y_i−\bar{Y})}{N-1}$$
 
-$$\large \sigma_{xy}^{2} = {\frac{\sum{(x-\mu_{x})(y-\mu_{y})}}{N}}$$
-
-
-> What are some issues that may arise when comparing covariances?
 
 ---
-## Associations
 
-**Sample:**
-
-$$\large r_{xy} = {\frac{\sum({z_{x}z_{y})}}{N}}$$
-
-**Population:**
-
-$$\large \rho_{xy} = {\frac{cov(X,Y)}{\sigma_{x}\sigma_{y}}}$$
+## Covariance table
 
 
-> Many other formulas exist for specific types of data
 
+$$\mathbf{K_{XX}} = \left[\begin{array}
+{rrr}
+\sigma^2_X & cov_{XY} & cov_{XZ} \\
+cov_{YX} & \sigma^2_Y & cov_{YZ} \\
+cov_{ZX} & cov_{ZY} & \sigma^2_Z
+\end{array}\right]$$
+
+
+$cov_{xy} = cov_{yx}$ 
+
+---
+## Covariance table
+
+
+
+$$\mathbf{K_{XX}} = \left[\begin{array}
+{rrr}
+\sigma^2_X & 126.5 & 5.2 \\
+126.5 & \sigma^2_Y & cov_{YZ} \\
+5.2 & cov_{ZY} & \sigma^2_Z
+\end{array}\right]$$
+
+
+
+Which variable, $Y$ or $Z$, does $X$ have greater relationship with?
+
+--
+
+Can't know because you don't know what units they're measured in!
 ---
 
 ## Correlations
@@ -204,6 +243,400 @@ ggplot(galton.data, aes(x=parent, y=child)) +
 - This will become our regression line. Right now, it is our correlation line. At this point **they are the same!**
 - You can do a lot of things with just correlations.
 ]
+
+---
+## Correlation
+
+Pearson product moment correlation
+
+### Population
+$$\rho_{XY} = \frac{\Sigma z_Xz_Y}{N} = \frac{SP}{\sqrt{SS_X}\sqrt{SS_Y}} = \frac{\sigma_{XY}}{\sigma_X \sigma_Y}$$
+### Sample
+$$r_{XY} = \frac{\Sigma z_Xz_Y}{n-1} = \frac{SP}{\sqrt{SS_X}\sqrt{SS_Y}} = \frac{s_{XY}}{s_X s_Y}$$
+???
+
+**Why is it called the Pearson Product Moment correlation?**
+Pearson = Karl Pearson
+Product = multiply
+Moment = variance is the second moment of a distribution
+---
+
+### Effect size
+- The strength of relationship between two variables
+- $\eta^2$, Cohen’s d,  $R^2$ , Risk-ratio, etc
+- Sig is a function of effect size and sample size
+- Statistical sig $\neq$ practical sig
+- *z*-scores allow us to compare across units of measure
+- The correlation coefficient is a **standardized effect size**.
+  - Ex:  $r_{age\:and\:height\:in\:kids} = .70$  $r_{self-\:and\:other-ratings\:extraversion} = .25$ 
+
+    
+---
+
+## What is a large correlation?
+
+--
+- [Cohen (1988)](http://www.utstat.toronto.edu/~brunner/oldclass/378f16/readings/CohenPower.pdf): .1 (small), .3 (medium), .5 (large)
+    - Often forgot: Cohen said only to use them when you had nothing else to go on, and has since regretted even suggesting benchmarks to begin with. 
+
+--
+
+- $r^2$: Proportion of variance "explained"
+    - as [Ozer & Funder (2019)](https://uopsych.github.io/psy611/readings/Ozer_Funder_2019.pdf) discuss, we're not really explaining anything and the change in scale can mess up our interpretations if we're not careful.
+
+---
+### What is the size of the correlation?
+- Chemotherapy and breast cancer survival?
+- Batting ability and hit success on a single at bat?
+- Antihistamine use and reduced sneezing/runny nose?
+- Combat exposure and PTSD?
+- Ibuprofen on pain reduction?
+- Gender and weight?
+- Therapy and well being?
+- Observer ratings of attractiveness?
+- Gender and arm strength?
+
+
+---
+### What is the size of the correlation?
+- Chemotherapy and breast cancer survival? (.03)
+- Batting ability and hit success on a single at bat? (.06)
+- Antihistamine use and reduced sneezing/runny nose? (.11)
+- Combat exposure and PTSD? (.11)
+- Ibuprofen on pain reduction? (.14)
+- Gender and weight? (.26)
+- Therapy and well being? (.32)
+- Observer ratings of attractiveness? (.39)
+- Gender and arm strength? (.55)
+
+
+---
+## Questions to ask yourself:
+- What is your N?
+- What is the typical effect size in the field?
+- Study design?
+- What is your DV?
+- Importance?
+
+---
+
+
+## What affects correlations?
+Correlations can be easily fooled by qualities of your data, like:
+
+- Skewed distributions
+
+- Outliers
+
+- Restriction of range
+
+- Nonlinearity
+
+- Reliability
+
+- Measurement Overlap (redundancy)
+
+---
+
+## Skewed distributions
+
+```{r, echo = FALSE}
+set.seed(101019) # so we all get the same random numbers
+mu = c(3, 4)
+Sigma = matrix(c(.8, .2, .2, .7), ncol =2) #diagonals are reliabilites, off-diagonals are correlations
+data = mvrnorm(n = 150, mu = mu, Sigma = Sigma)
+data = as.data.frame(data)
+colnames(data) = c("x", "y")
+data$x = data$x^4
+```
+
+```{r, fig.height = 5}
+p = data %>% ggplot(aes(x=x, y=y)) + geom_point()
+ggMarginal(p, type = "density")
+```
+---
+
+## Outliers
+
+```{r, echo = FALSE}
+set.seed(101019) # so we all get the same random numbers
+mu = c(3, 4)
+Sigma = matrix(c(.8, 0, 0, .7), ncol =2) #diagonals are reliabilites, off-diagonals are correlations
+data = mvrnorm(n = 50, mu = mu, Sigma = Sigma)
+data = as.data.frame(data)
+colnames(data) = c("x", "y")
+data[51, ] = c(7, 10)
+```
+
+```{r, fig.height = 5}
+data %>% ggplot(aes(x=x, y=y)) + geom_point() 
+```
+---
+
+## Outliers
+
+.pull-left-small[
+.code-small[
+```{r, eval=FALSE, message = FALSE, warning = FALSE}
+data %>% ggplot(aes(x=x, y=y)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              se = FALSE,
+              color = "red") +
+  geom_smooth(data = data[-51,], 
+              method = "lm", 
+              se = FALSE)
+```
+]
+]
+
+.pull-right-large[
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+data %>% ggplot(aes(x=x, y=y)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              se = FALSE,
+              color = "red") +
+  geom_smooth(data = data[-51,], 
+              method = "lm", 
+              se = FALSE)
+```
+]
+
+---
+
+## Restriction of range
+
+```{r, echo = FALSE}
+set.seed(1010191) # so we all get the same random numbers
+mu = c(100, 4)
+Sigma = matrix(c(.7, .4, 4, .75), ncol = 2) #diagonals are reliabilites, off-diagonals are correlations
+data = mvrnorm(n = 150, mu = mu, Sigma = Sigma)
+data = as.data.frame(data)
+colnames(data) = c("x", "y")
+real_data = data
+data = filter(data, x >100 & x < 101)
+```
+
+.pull-left-small[
+.code-small[
+```{r, eval = FALSE, message = FALSE, warning = FALSE}
+data %>%
+ggplot(aes(x=x, y=y)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              se = FALSE,
+              color = "red")
+```
+]
+]
+
+.pull-right-large[
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+data %>% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red")
+```
+]
+
+???
+
+What if I told you there were scores on X could range from 97 to 103?
+
+---
+
+## Restriction of range
+
+.pull-left-small[
+.code-small[
+
+```{r, eval = FALSE, warning=F, message=F}
+data %>%
+ggplot(aes(x=x, y=y)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              se = FALSE,
+              color = "red") + 
+  geom_point(data = real_data) +
+  geom_smooth(method = "lm",
+              se = FALSE,
+              data = real_data,
+              color = "blue")
+```
+]
+]
+
+.pull-right-large[
+```{r, echo = FALSE, warning=F, message=F}
+data %>%
+ggplot(aes(x=x, y=y)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              se = FALSE,
+              color = "red") + 
+  geom_point(data = real_data) +
+  geom_smooth(method = "lm",
+              se = FALSE,
+              data = real_data,
+              color = "blue")
+```
+]
+
+
+
+???
+
+**Can you think of example where this might occur in psychology?**
+My idea: that many psychology studies only look at undergraduates (restricted age, restricted education) -- can't use these as predictors or covariates
+
+---
+
+## Nonlinearity
+
+```{r, echo = FALSE, warning = FALSE, message=FALSE}
+x = runif(n = 150, min = -2, max = 2)
+y = x^2 +rnorm(n = 150, sd = .5)
+data = data.frame(x,y)
+```
+
+```{r, fig.height = 5, warning=FALSE, message=FALSE, echo=FALSE}
+data %>% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red")
+```
+
+---
+
+## It's not always apparent
+
+Sometimes issues that affect correlations won't appear in your graph, but you still need to know how to look for them.
+
+- Multiple Groups
+
+- Low reliability
+
+- Content overlap
+
+
+---
+
+## Multiple groups
+
+```{r, echo = FALSE}
+set.seed(101019) # so we all get the same random numbers
+m_mu = c(100, 4)
+m_Sigma = matrix(c(.7, .4, 4, .75), ncol = 2) #diagonals are reliabilites, off-diagonals are correlations
+m_data = mvrnorm(n = 150, mu = m_mu, Sigma = m_Sigma)
+m_data = as.data.frame(m_data)
+colnames(m_data) = c("x", "y")
+
+f_mu = c(102, 3)
+f_Sigma = matrix(c(.7, .4, 4, .75), ncol = 2) #diagonals are reliabilites, off-diagonals are correlations
+f_data = mvrnorm(n = 150, mu = f_mu, Sigma = f_Sigma)
+f_data = as.data.frame(f_data)
+colnames(f_data) = c("x", "y")
+
+m_data$gender = "male"
+f_data$gender = "female"
+
+data = rbind(m_data, f_data)
+```
+
+```{r, fig.height = 5, message=F, warning=F, echo=FALSE}
+data %>% ggplot(aes(x=x, y=y)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "red")
+```
+
+---
+
+## Multiple groups
+
+```{r, fig.height = 5, message=F, warning=F, echo=FALSE}
+data %>% ggplot(aes(x=x, y=y, color = gender)) + geom_point() + geom_smooth(method = "lm", se = FALSE) + guides(color = F)
+```
+
+--
+
+Known as **Simpson's Paradox**
+
+---
+## Reliability
+
+
+Which would you rather have?
+
+  - 1-item final exam versus 30-item?
+
+  - assessment via trained clinician vs tarot cards?
+
+  - fMRI during minor earthquake vs no earthquake?
+
+--
+
+All measurement includes error
+
+- Score = true score + measurement error (CTT version)
+
+- Reliability assesses the consistency of measurement; high reliability indicates less error
+
+---
+
+## Reliability
+
+- Error is random; it cannot correlate with something
+
+- Because we don't measure our variables perfectly, we get lower correlations compared to true correlations
+
+- If we want to have a valid measure it better be a reliable measure
+
+---
+## Reliability
+
+- Think of reliability as a correlation with a measure and itself in a different world, at a different time, or a different but equal version
+
+$$\large r_{XX}$$
+
+---
+### Reliability
+
+- True score variance divided by observed variance
+
+$$r_{XX} = \frac{\sigma^2_{T}}{\sigma^2_{T} + \sigma^2_{E}}$$
+
+- How do you assess true score variance?
+
+$$\large r_{XY} = r_{X_{T} Y_{T}} {\sqrt{r_{XX}r_{YY}}}$$
+- We can look at our observed correlation ( $r_{XY}$ ) and our reliability coefficients ( $r_{XX}$ and $r_{YY}$ ), and solve
+
+$$\large .3 = r_{X_{T} Y_{T}} {\sqrt {(.70) (.70)}}$$
+
+---
+## Reliability
+
+$$\large r_{X_{T} Y_{T}} =  {\frac {r_{XY}} {\sqrt{r_{XX}r_{YY}}}}$$
+
+
+$$\large r_{X_{T} Y_{T}} = {\frac {.30} {\sqrt{(.70)(.70)}}} = .42$$
+--
+
+- CAVEAT: Reliabilities are also estimates. They can be wrong and there are lots of ways to get a reliability coefficient. The correlation you calculate ( $r_{X_{T} Y_{T}}$ ) is the highest correlation it could possibly be -- not the actual "theoretically true" correlation.
+
+---
+## Most common ways to assess
+
+- Cronbach's $\alpha$
+```{r, eval=FALSE}
+library (psych)
+alpha(measure)
+## Gives average split half correlation
+## Can tell you if you are assessing a single construct
+```
+- Test - retest reliability (r, ICC)
+- Inter-rater reliability (kappa, ICC)
+
+---
+## Reliability
+
+- If you are going to measure something, do it well
+
+- Applies to ALL IVs and DVs, and all designs
+
+- Remember this when interpreting other research
 
 ---
 
@@ -505,7 +938,7 @@ fisherz2r(z)
 
 - Does the correlation in group 1 differ from the correlation in group 2?
 
-$$ H_A: \rho_1 = \rho_2 $$
+$$ H_0: \rho_1 = \rho_2 $$
 
 $$ H_A: \rho_1 \neq \rho_2 $$
 
@@ -572,57 +1005,19 @@ pnorm(abs(zstat), lower.tail = F)*2
 ```
 
 .small[*Note: more examples at end of slides, after "next time"*]
----
-## Effect size
-
-- The strength of relationship between two variables
-
-- $\eta^2$, Cohen’s d, Cohen’s f, hedges g, $R^2$ , Risk-ratio, etc
-
-- Significance is a function of effect size and sample size
-
-- Statistical significance $\neq$ practical significance
 
 ---
-## Effect size
-How big is practical?
 
-- Cohen (.1, .3, .5)
-- Meyer & Hemphill .3 is average
+## Summary of NHST with Correlations
 
----
-### What is the size of the correlation?
-- Chemotherapy and breast cancer survival?
-- Batting ability and hit success on a single at bat?
-- Antihistamine use and reduced sneezing/runny nose?
-- Combat exposure and PTSD?
-- Ibuprofen on pain reduction?
-- Gender and weight?
-- Therapy and well being?
-- Observer ratings of attractiveness?
-- Gender and arm strength?
+- If "is _r_ different from the number 0, *t*-test" -- **where have you seen this before?**
 
+--
 
----
-### What is the size of the correlation?
-- Chemotherapy and breast cancer survival? (.03)
-- Batting ability and hit success on a single at bat? (.06)
-- Antihistamine use and reduced sneezing/runny nose? (.11)
-- Combat exposure and PTSD? (.11)
-- Ibuprofen on pain reduction? (.14)
-- Gender and weight? (.26)
-- Therapy and well being? (.32)
-- Observer ratings of attractiveness? (.39)
-- Gender and arm strength? (.55)
-
-
----
-## Questions to ask yourself:
-- What is your N?
-- What is the typical effect size in the field?
-- Study design?
-- What is your DV?
-- Importance?
+- Use r to z if:
+  - Need a CI
+  - "is _r_ different from another number that is not 0"
+  - Compare 2 correlations against each other
 
 ---
 ## Correlation matrices
@@ -817,102 +1212,7 @@ corrplot(cor(bfi, use = "pairwise"), method = "square")
 
 - Again, best to do these tests in another framework (e.g., interaction, SEM, MLM)
 
----
-### Factors that influence *r* 
-1. Restriction of range (GRE scores and success)
 
-2. Very skewed distributions (smoking and health)
-
-3. Non-linear associations
-
-4. Measurement overlap (modality and content)
-
-5. Reliability
-
-6. Outliers
----
-## Reliability
-
-
-Which would you rather have?
-
-  - 1-item final exam versus 30-item?
-
-  - assessment via trained clinician vs tarot cards?
-
-  - fMRI during minor earthquake vs no earthquake?
-
---
-
-All measurement includes error
-
-- Score = true score + measurement error (CTT version)
-
-- Reliability assesses the consistency of measurement; high reliability indicates less error
-
----
-
-## Reliability
-
-- Error is random; it cannot correlate with something
-
-- Because we don't measure our variables perfectly, we get lower correlations compared to true correlations
-
-- If we want to have a valid measure it better be a reliable measure
-
----
-## Reliability
-
-- Think of reliability as a correlation with a measure and itself in a different world, at a different time, or a different but equal version
-
-$$\large r_{XX}$$
-
----
-### Reliability
-
-- True score variance divided by observed variance
-
-$$r_{XX} = \frac{\sigma^2_{T}}{\sigma^2_{T} + \sigma^2_{E}}$$
-
-- How do you assess true score variance?
-
-$$\large r_{XY} = r_{X_{T} Y_{T}} {\sqrt{r_{XX}r_{YY}}}$$
-- We can look at our observed correlation ( $r_{XY}$ ) and our reliability coefficients ( $r_{XX}$ and $r_{YY}$ ), and solve
-
-$$\large .3 = r_{X_{T} Y_{T}} {\sqrt {(.70) (.70)}}$$
-
----
-## Reliability
-
-$$\large r_{X_{T} Y_{T}} =  {\frac {r_{XY}} {\sqrt{r_{XX}r_{YY}}}}$$
-
-
-$$\large r_{X_{T} Y_{T}} = {\frac {.30} {\sqrt{(.70)(.70)}}} = .42$$
---
-
-- CAVEAT: Reliabilities are also estimates. They can be wrong and there are lots of ways to get a reliability coefficient. The correlation you calculate ( $r_{X_{T} Y_{T}}$ ) is the highest correlation it could possibly be -- not the actual "theoretically true" correlation.
-
----
-## Most common ways to assess
-
-- Cronbach's $\alpha$
-```{r, eval=FALSE}
-library (psych)
-alpha(measure)
-## Gives average split half correlation
-## Can tell you if you are assessing a single construct
-```
-- Test - retest reliability (r, ICC)
-- Inter-rater reliability (kappa, ICC)
-
----
-## Reliability
-
-- If you are going to measure something, do it well
-
-- Applies to ALL IVs and DVs, and all designs
-
-- Remember this when interpreting other research
 
 ---
 ## Types of correlations
@@ -930,13 +1230,77 @@ alpha(measure)
     +  continuous and dichtomous
 2. Phi coefficient
     + both dichotomous
-3. Spearman rank order
+3. Spearman & Kendall rank order
     + ranked data (nonparametric)
-4. Biserial (assumes dichotomous is continous)
-5. Tetrachoric (assumes dichotomous is continous)
+    + Spearman for larger samples, Kendall for smaller samples (or a lot of ties in rank ordering)
+4. Biserial (assumes dichotomous is continuous)
+5. Tetrachoric (assumes dichotomous is continuous)
     + both dichotomous
-6. Polychoric (assumes continous)
+6. Polychoric (assumes continuous)
     + ordinal
+
+---
+## Do the special cases matter?
+
+For Spearman, you'll get a different answer. 
+```{r}
+x = rnorm(n = 10); y = rnorm(n = 10) #randomly generate 10 numbers from normal distribution
+```
+
+.pull-left[
+```{r, echo = T}
+head(cbind(x,y))
+cor(x,y, method = "pearson")
+```
+]
+.pull-right[
+```{r}
+head(cbind(x,y, rank(x), rank(y)))
+cor(x,y, method = "spearman")
+```
+]
+
+---
+## Do the special cases matter?
+
+If your data are naturally binary, no difference between Pearson and point-biserial.
+
+```{r}
+x = rnorm(n = 10); y = rbinom(n = 10, size = 1, prob = .3)
+head(cbind(x,y))
+```
+
+.pull-left[
+```{r, echo = T}
+cor(x,y, method = "pearson")
+```
+]
+.pull-right[
+```{r}
+ltm::biserial.cor(x,y, level = 2)
+```
+]
+---
+### Do the special cases matter?
+
+.tiny[If your data are artificially binary, there can be big differences. DON'T USE MEDIAN SPLITS!]
+
+```{r}
+x = rnorm(n = 10); y = rnorm(n = 10)
+```
+.pull-left[
+```{r, echo = T}
+head(cbind(x,y))
+cor(x,y, method = "pearson")
+```
+]
+.pull-right[
+```{r}
+d_y = ifelse(y < median(y), 0, 1)
+head(cbind(x,y, d_y))
+ltm::biserial.cor(x,d_y, level = 2)
+```
+]
 
 ---
 
@@ -944,7 +1308,7 @@ class: inverse
 
 ## Next time....
 
-Univariate regression
+Partial and Semi-partial correlations
 
 (remaining slides include more examples, if you want some practice)
 
@@ -1022,3 +1386,5 @@ stat
 pnorm(stat, lower.tail = F)
 pnorm(stat, lower.tail = F)*2
 ```
+
+pagedown::chrome_print("4-correlation.html")

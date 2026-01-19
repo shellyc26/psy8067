@@ -10,3 +10,10 @@ stringr
 forcats
 psychTools
 RColorBrewer
+xaringanthemer
+MASS
+lubridate
+ggExtra
+pwr
+datasauRus
+corrplot
