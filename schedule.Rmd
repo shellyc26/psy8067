@@ -15,7 +15,7 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 **PR = Peer Review**
 
 | Week | Date | Topic | Readings | HW Due |   |
-|------------|------------|------------|------------|------------|------------|
+|----|----|----|----|----|----|
 | 1 | 1/13 | Recap & GLM Intro |  |  |  |
 | \- | 1/15 | Data Management | [Human Fallibility](readings/HumanFallibility_DataManagement.pdf) |  |  |
 | 2 | 1/20 | Correlations (Quant1) |  |  |  |
@@ -37,14 +37,14 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 | 10 | 3/17 | Logistic Regression/GLM | [Cohen Logistic](readings/Logistic-Cohen.pdf) |  |  |
 | \- | 3/19 | Random/Flex/Catch-up |  | **HW 2 DUE 3/22 11:59pm** |  |
 | 11 | 3/24 | **Exam 2** |  |  |  |
-| \- | 3/26 | Validity |  |  |  |
+| \- | 3/26 | Resampling Methods |  |  |  |
 | 12 | 3/31 | Machine Learning | [Yarkoni & Westfall](readings/Yarkoni%20Westfall%20PPS.pdf) |  |  |
 | \- | 4/2 | Qualitative Methods *– Dr. Leath* |  |  |  |
-| 13 | 4/7 | Resampling Methods |  |  |  |
+| 13 | 4/7 | Factor Analysis |  |  |  |
 | \- | 4/9 | AI Intro - *Dr. Oltmanns* |  |  |  |
 | 14 | 4/14 | MLM Intro |  |  |  |
-| \- | 4/16 | MLM Intro |  |  |  |
-| 15 | 4/21 | TBD |  | **HW 3 DUE 4/19 11:59pm** |  |
+| \- | 4/16 | Bayes Intro |  |  |  |
+| 15 | 4/21 | Validity |  | **HW 3 DUE 4/19 11:59pm** |  |
 | \- | 4/23 | **FINAL** |  |  |  |
 
 # Overview
