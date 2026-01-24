@@ -13,7 +13,7 @@ Homework assignments will appear here. You'll be able to access the assignment, 
 Note that this semester you will be making your RMarkdown/RNotebook/Quarto (anything with the extension `.Rmd` or `.qmd`) files on your own. If you need help, within RStudio, go to Help > Cheatsheets and select either the R Markdown Cheat Sheet or the R Markdown Reference Guide for help with formatting. Please contact us ASAP with any questions or issues when knitting to HTML.
 
 ## Homework 1
-- HW 1 will be posted here
+- [HW 1 is here](homework/homework1_2026.html)
 - Due on **Sunday 2/8 by 11:59pm**
 
 
