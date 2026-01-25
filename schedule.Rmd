@@ -15,7 +15,7 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 **PR = Peer Review**
 
 | Week | Date | Topic | Readings | HW Due |   |
-|----|----|----|----|----|----|
+|------------|------------|------------|------------|------------|------------|
 | 1 | 1/13 | Recap & GLM Intro |  |  |  |
 | \- | 1/15 | Data Management | [Human Fallibility](readings/HumanFallibility_DataManagement.pdf) |  |  |
 | 2 | 1/20 | Correlations (Quant1) |  |  |  |
@@ -23,8 +23,8 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 | 3 | 1/27 | Partial Correlations | Ch. 15.3 - end of chapter |  |  |
 | \- | 1/29 | Multiple Regression |  |  |  |
 | 4 | 2/3 | Multiple Regression |  |  |  |
-| \- | 2/5 | Buffer/catch-up |  |  |  |
-| 5 | 2/10 | Assumptions and Diagnostics |  | **HW 1 DUE 2/8 11:59pm** |  |
+| \- | 2/5 | Assumptions and Diagnostics |  |  |  |
+| 5 | 2/10 | Buffer/Catch-up/Review |  | **HW 1 DUE 2/8 11:59pm** |  |
 | \- | 2/12 | **Exam 1** |  |  |  |
 | 6 | 2/17 | Interactions I |  |  |  |
 | \- | 2/19 | Brief detour - ANOVA from Quant I |  |  |  |
