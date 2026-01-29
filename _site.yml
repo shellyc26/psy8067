@@ -17,6 +17,8 @@ navbar:
         href: "lectures/5-correlation.html"
       - text: "5-Partial Correlations"
         href: "lectures/7-partial.html"
+      - text: "6-Multiple Regression 1"
+        href: "lectures/8-m_regression.html"
     - text: PDF Slides
       menu:
       - text: "1-Intro"
@@ -29,6 +31,8 @@ navbar:
         href: "lectures/5-correlation.pdf"
       - text: "5-Partial Correlations"
         href: "lectures/7-partial.pdf"
+      - text: "6-Multiple Regression 1"
+        href: "lectures/8-m_regression.pdf"
     - text: Homework
       href: homework.html
   right:

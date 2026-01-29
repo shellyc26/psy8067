@@ -42,8 +42,8 @@ LSR readings can be found in the free, online textbook, [*Learning Statistics wi
 | \- | 4/2 | Qualitative Methods *– Dr. Leath* |  |  |  |
 | 13 | 4/7 | Factor Analysis |  |  |  |
 | \- | 4/9 | AI Intro - *Dr. Oltmanns* |  |  |  |
-| 14 | 4/14 | MLM Intro |  |  |  |
-| \- | 4/16 | Bayes Intro |  |  |  |
+| 14 | 4/14 | MLM Intro *- Ben Hardin* |  |  |  |
+| \- | 4/16 | Bayes Intro - *Dr. Jackson* |  |  |  |
 | 15 | 4/21 | Validity |  | **HW 3 DUE 4/19 11:59pm** |  |
 | \- | 4/23 | **FINAL** |  |  |  |
 

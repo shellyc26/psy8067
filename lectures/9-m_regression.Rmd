@@ -278,7 +278,7 @@ psych::describe(solomon[,c("ID", "CONDITION", "WISDOM")], fast = T)
 
 --
 .pull-left[
-```{r table, results = 'asis', message=FALSE, warning=FALSE, eval = F}
+```{r, table, results = 'asis', message=FALSE, warning=FALSE, eval = F}
 library(knitr)
 library(kableExtra)
 head(solomon) %>% 
